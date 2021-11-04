@@ -34,17 +34,23 @@ class CastleProvider extends ServiceProvider
 
         // Loading Custom middlewhere
         $this->app['router']->aliasMiddleware(
-            'wall', \Mariojgt\Castle\Middleware\CastleWall::class
+            'wall',
+            \Mariojgt\Castle\Middleware\CastleWall::class
         );
 
         // Load Castle views
-        $this->loadViewsFrom(__DIR__.'/views', 'Castle');
+        $this->loadViewsFrom(__DIR__ . '/views', 'Castle');
 
         // Load Castle routes
-        $this->loadRoutesFrom(__DIR__.'/Routes/web.php');
+        $this->loadRoutesFrom(__DIR__ . '/Routes/web.php');
+
+        // Hide or display the demo route
+        if (config('castle.demo_enable')) {
+            $this->loadRoutesFrom(__DIR__ . '/Routes/demo.php');
+        }
 
         // Load Migrations
-        $this->loadMigrationsFrom(__DIR__.'/Database/Migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/Database/Migrations');
     }
 
     /**
@@ -61,22 +67,22 @@ class CastleProvider extends ServiceProvider
     {
         // Publish the npm
         $this->publishes([
-            __DIR__.'/../Publish/Npm/' => base_path(),
+            __DIR__ . '/../Publish/Npm/' => base_path(),
         ]);
 
         // Publish the resource
         $this->publishes([
-            __DIR__.'/../Publish/Resource/' => resource_path('vendor/Castle/'),
+            __DIR__ . '/../Publish/Resource/' => resource_path('vendor/Castle/'),
         ]);
 
         // Publish the public folder with the css and javascript pre compile
         $this->publishes([
-            __DIR__.'/../Publish/Public/' => public_path('vendor/Castle/'),
+            __DIR__ . '/../Publish/Public/' => public_path('vendor/Castle/'),
         ]);
 
         // Publish the public folder
         $this->publishes([
-            __DIR__.'/../Publish/Config/' => config_path(''),
+            __DIR__ . '/../Publish/Config/' => config_path(''),
         ]);
     }
 }

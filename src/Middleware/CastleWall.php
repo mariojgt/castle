@@ -20,7 +20,7 @@ class CastleWall
     /**
      * Handle an incoming request.
      * This will check if the user has the permission to manage this.
-     *
+     * Remember session are generate in the server side
      * @param \Illuminate\Http\Request $request
      * @param \Closure                 $next
      *
@@ -34,8 +34,8 @@ class CastleWall
         if (empty(Session::get('castle_wall_autenticate'))) {
             return $autenticatorHandle->renderWallAutentication();
         }
-        // now we need to check if the session is expired
 
+        // Now we need to check if the session is expired
         $date = Carbon::parse(Session::get('castle_wall_last_sync'));
         $now  = Carbon::now();
         $diff = $date->diffInMinutes($now);
