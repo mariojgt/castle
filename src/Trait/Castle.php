@@ -2,9 +2,10 @@
 
 namespace Mariojgt\Castle\Trait;
 
-use Illuminate\Database\Eloquent\Model;
-use Mariojgt\Castle\Helpers\AutenticatorHandle;
 use Mariojgt\Castle\Model\CastleCode;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Session;
+use Mariojgt\Castle\Helpers\AutenticatorHandle;
 
 trait Castle
 {
@@ -12,9 +13,16 @@ trait Castle
      * Get the user autenticator token
      * @return [type]
      */
-    public function checkAutenticatorSecret()
+    public function twoStepsEnable()
     {
-        dd($this->getCodes);
+        $codes = $this->getCodes;
+        if (empty($codes)) {
+            return false;
+        } else {
+            // Start the session so we can check the user one time password
+            Session::put('autenticator_key', $codes['secret']);
+            return true;
+        }
     }
 
     public function syncAutenticator($secret)
@@ -32,8 +40,12 @@ trait Castle
         $castleCode->save();
     }
 
+    /**
+     * Reutrn the user or model codes
+     * @return [type]
+     */
     public function getCodes()
     {
-        return $this->morphTo('castle_codes', 'model', 'model_id');
+        return $this->morphOne(CastleCode::class, 'castle_codes', 'model', 'model_id');
     }
 }

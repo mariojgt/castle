@@ -51,8 +51,9 @@ class AutenticatorHandle
     {
         // If key not pass we get from session
         if (empty($key)) {
-            $key = Session::get('autenticator_key');
+            $key = decrypt(Session::get('autenticator_key'));
         }
+
         return Google2FA::verifyKey($key, $one_time_password);
     }
 
