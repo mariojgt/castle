@@ -5,10 +5,14 @@ namespace Mariojgt\Castle\Middleware;
 use Closure;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Session;
 use Mariojgt\Castle\Helpers\AutenticatorHandle;
 
+/**
+ * [This middlewhere will ensure 2 steps verfication]
+ */
 class CastleWall
 {
     public function __construct(Application $app, Request $request)
@@ -26,10 +30,12 @@ class CastleWall
      *
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $guard = 'web')
     {
+        dd(Auth::guard($guard)->user()->checkAutenticatorSecret());
         // Start the autenticator class handle
         $autenticatorHandle = new AutenticatorHandle();
+
         // Check if the user is already login if not we need to render a view to make sure it login using the code
         if (empty(Session::get('castle_wall_autenticate'))) {
             return $autenticatorHandle->renderWallAutentication();
