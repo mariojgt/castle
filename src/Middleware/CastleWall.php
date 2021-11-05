@@ -32,28 +32,34 @@ class CastleWall
      */
     public function handle($request, Closure $next, $guard = 'web')
     {
-        if (Auth::guard($guard)->user()->twoStepsEnable()) {
-            // Start the autenticator class handle
-            $autenticatorHandle = new AutenticatorHandle();
+        // Make sure that the user is logoin before we can check the autenticator code
+        if (Auth::guard($guard)->check()) {
+            // Check if the currect user has twoStepsEnable enable
+            if (Auth::guard($guard)->user()->twoStepsEnable()) {
+                // Start the autenticator class handle
+                $autenticatorHandle = new AutenticatorHandle();
 
-            // Check if the user is already login if not we need to render a view to make sure it login using the code
-            if (empty(Session::get('castle_wall_autenticate'))) {
-                return $autenticatorHandle->renderWallAutentication();
+                // CHeck if the user has already pass 2 steps autentication
+                if (empty(Session::get('castle_wall_autenticate'))) {
+                    return $autenticatorHandle->renderWallAutentication();
+                }
+
+                // Now we need to check if the session is expired
+                $date = Carbon::parse(Session::get('castle_wall_last_sync'));
+                $now  = Carbon::now();
+                // check the session diference in minutes
+                $diff = $date->diffInMinutes($now);
+                // If true we need to make the user autenticate again
+                if ($diff >= config('castle.castle_wall_session_time')) {
+                    return $autenticatorHandle->renderWallAutentication();
+                }
+                return $next($request);
+            } else {
+                return $next($request);
             }
-
-            // Now we need to check if the session is expired
-            $date = Carbon::parse(Session::get('castle_wall_last_sync'));
-            $now  = Carbon::now();
-            $diff = $date->diffInMinutes($now);
-            // If true we need to make the user autenticate again
-            if ($diff >= config('castle.castle_wall_session_time')) {
-                return $autenticatorHandle->renderWallAutentication();
-            }
-
-            return $next($request);
         } else {
-
-            return $next($request);
+            // Case is not login return a 401
+            abort(401);
         }
     }
 }

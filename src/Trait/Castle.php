@@ -25,13 +25,19 @@ trait Castle
         }
     }
 
+    /**
+     * This fuction attach the model to that autenticator secrete and generate backup codes
+     * @param mixed $secret
+     *
+     * @return [type]
+     */
     public function syncAutenticator($secret)
     {
         // Call the class
         $autenticatorHandle = new AutenticatorHandle();
-        // generate the backup codes
+        // Generate the backup codes based in the secret
         $syncCode           = $autenticatorHandle->generateBackupCodes($secret);
-        // attach the model to the table where have the secret and the codes
+        // Attach the model to the table where have the secret and the codes
         $castleCode           = new CastleCode();
         $castleCode->model    = get_class($this);
         $castleCode->model_id = $this->id;
@@ -41,7 +47,7 @@ trait Castle
     }
 
     /**
-     * Reutrn the user or model codes
+     * Return the model codes relation
      * @return [type]
      */
     public function getCodes()

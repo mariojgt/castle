@@ -29,16 +29,19 @@ class HomeContoller extends Controller
         $request->validate([
             'email'       => 'required',
         ]);
+
         // Call the class that generate the gr-code with the screct read for google autneticator
         $autenticatorHandle = new AutenticatorHandle();
         $generatedCode      = $autenticatorHandle->generateCode(Request('email'));
+
         // Add the secret in a session so we can check later if match
         Session::put('autenticator_key', $generatedCode["secret"]);
+
         return view('Castle::content.home.code_generated', compact('generatedCode'));
     }
 
     /**
-     * Check if the code that the user type mathc with the autenticator
+     * Check if the code that the user type match with the autenticator
      * @param Request $request
      *
      * @return [type]

@@ -1,76 +1,24 @@
-![image info](https://raw.githubusercontent.com/mariojgt/castle/master/Publish/Public/image/Castle.png)
-
 # Castle
-This Laravel packages contain a very simple structure for any kind of packages development for Laravel
+
+This Laravel packages has been desing to quickly add 2 steps verifications i am very simple way
+and very easy to exapand
 
 # Features
 
-- [ ] Clean and basic start point in Laravel package development.
-- [ ] Webpack setup with tailwind css ,sweetalert2 and vue3 basic setup.
-- [ ] Simple out of the box Laravel Authentication, using the package.
-- [ ] Example Laravel components, and layout structure.
-- [ ] Tailwind with npm presetup for runing with packages.
-- [ ] Republish command
-- [ ] Reusable laravel layout
-- [ ] Dynamic form
-- [ ] Lightweight
-- [ ] Dark|light mode out of the box
-- [ ] Now with api read to use with a mobile aplication
-
-# Installation
-
-You have 2 options.
+-   [ ] Demo with the example flow you need.
+-   [ ] 2 steps autentication.
+-   [ ] middlewhere protection.
 
 ### First option via composer
 
 1. composer require mariojgt/castle
-2. php artsain vendor:publish --force  (select the package number)
+2. php artisan install::castle
 
-### Second Option gitclone (Recommended if you like to change and make to your own)
+This will copy the resource assets, rung migrations and copy over some config file we need to use;
 
-1. git clone https://github.com/mariojgt/castle
+## How to use
 
-2. Setup you composer to use local VCS
+The way it works is you request to the server the code generation based on the email you type,
+that will return a qr_code in svg formater and you secret used to the autenticate in the autentication,
+work with any autentication 2fas, after you display that qrcode and the user sync with his phone you can use that secret to link his account to the secrete and automatic generate encryped backup codes that can be use to recover the account.
 
-3. ```javascript
-   "repositories": [
-           {
-               "type" : "path",
-               "url": "packages/Castle", // Path to your local folder package
-               "options": {
-                   "symlink": true
-               }
-           }
-       ],
-       "require": {
-           "php": "^7.3|^8.0", //Example
-           "fideloper/proxy": "^4.4",//Example
-           "fruitcake/laravel-cors": "^2.0",//Example
-           "guzzlehttp/guzzle": "^7.0.1",//Example
-           "laravel/framework": "^8.12",//Example
-           "laravel/tinker": "^2.5",//Example
-           "mariojgt/castle": "@dev"// Here is where you add the package reference
-       },
-   ```
-
-4. php artsain vendor:publish --force  (select the package number)
-
-## Command Republish
-
-The following commands
-
-```php
-php artisan republish:Castle
-```
-
-Will move you changes in your resources like the js or css back to the packages useful to speed up development.
-
-# Packages info
-
-This package purpose is to give a fresh start for a new package so you can use those premade tools or just delete and use the package Castle, note the by default the system don't allow registration but you can change that i the Castle config file.
-# Easy way to install
-
-```php
-php artisan install:Castle
-
-```

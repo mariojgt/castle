@@ -63,9 +63,13 @@ class AutenticatorHandle
      */
     public function logout()
     {
+        // Forget the autenticator secret
         Session::forget('autenticator_key');
+        // Forget the by pass in the middlewhere
         Session::forget('castle_wall_autenticate');
+        // also forget the last time sync
         Session::forget('castle_wall_last_sync');
+        // Return ture means is logout from the autenticator
         return true;
     }
 
@@ -88,13 +92,14 @@ class AutenticatorHandle
     public function generateBackupCodes($secret)
     {
         $codes = [];
+        // Loop 10 imes and generate 10 coed based in the autenticator secret
         for ($i = 1; $i <= 10; $i++) {
             $codes[$i] = [
                 'code' => encrypt($secret . '_' . Str::uuid()),
                 'used' => false
             ];
         }
-
+        // return the code and the secret
         return [
             'back_up_code' => json_encode($codes),
             'secret'       => $secret,
