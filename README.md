@@ -14,7 +14,7 @@ and very easy to exapand
 1. composer require mariojgt/castle
 2. php artisan install::castle
 
-This will copy the resource assets, rung migrations and copy over some config file we need to use;
+This will copy the resource assets, run migrations and copy over some config file we need to use;
 
 ## How to use
 
