@@ -25,7 +25,7 @@ class WallAutentication extends Controller
 
         // This will check if the type code is valid
         $autenticatorHandle = new AutenticatorHandle();
-
+        // Check if the code is valid if yes we can redirect the user tho the correct place
         if ($autenticatorHandle->checkCode(Request('code'))) {
             // Create some varaible so the user can be autenticate and pass the middlewhere
             Session::put('castle_wall_autenticate', true); // means the user can pass the middlewhere

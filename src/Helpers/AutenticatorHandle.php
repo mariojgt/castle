@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 class AutenticatorHandle
 {
     /**
-     * Generate the autenticator code
+     * Generate the autenticator code and the qrcode string
      * @param string $email
      *
      * @return [type]
@@ -49,16 +49,16 @@ class AutenticatorHandle
      */
     public function checkCode($one_time_password, $key = null)
     {
-        // If key not pass we get from session
+        // If empty it comes from the session note that we descypt that before
         if (empty($key)) {
             $key = decrypt(Session::get('autenticator_key'));
         }
-
+        // Verify the code
         return Google2FA::verifyKey($key, $one_time_password);
     }
 
     /**
-     * Make so the user logout
+     * When you logout from the aplication call this mehtod so we reset the one time password
      * @return [type]
      */
     public function logout()
@@ -74,7 +74,7 @@ class AutenticatorHandle
     }
 
     /**
-     * Return the view where the user can autenticate
+     * Return the view where the user can autenticate using the autenticator code
      * @return [type]
      */
     public function renderWallAutentication()
@@ -83,7 +83,7 @@ class AutenticatorHandle
     }
 
     /**
-     * Return the backupcodes
+     * Generate and return the backupcodes
      *
      * @param mixed $secret
      *
@@ -92,14 +92,14 @@ class AutenticatorHandle
     public function generateBackupCodes($secret)
     {
         $codes = [];
-        // Loop 10 imes and generate 10 coed based in the autenticator secret
+        // Loop 10 imes and generate 10 codes based in the autenticator secret
         for ($i = 1; $i <= 10; $i++) {
             $codes[$i] = [
                 'code' => encrypt($secret . '_' . Str::uuid()),
                 'used' => false
             ];
         }
-        // return the code and the secret
+        // return the code and the secret encrypted for extra security
         return [
             'back_up_code' => json_encode($codes),
             'secret'       => $secret,

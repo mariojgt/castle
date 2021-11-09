@@ -7,6 +7,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Mariojgt\Castle\Helpers\AutenticatorHandle;
 
+/**
+ * The controller is used only for the demo, it cointains the basic to get stated wit the 2 steps verification
+ * [Description HomeContoller]
+ */
 class HomeContoller extends Controller
 {
     /**
