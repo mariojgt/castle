@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
 use Mariojgt\Castle\Helpers\AutenticatorHandle;
 
+/**
+ * [This trait will handle the model autenticator features]
+ * will check if the autenticator is enable, return the backupcodes and sync the model with the autenticator
+ */
 trait Castle
 {
     /**
@@ -33,17 +37,30 @@ trait Castle
      */
     public function syncAutenticator($secret)
     {
-        // Call the class
-        $autenticatorHandle = new AutenticatorHandle();
-        // Generate the backup codes based in the secret
-        $syncCode           = $autenticatorHandle->generateBackupCodes($secret);
-        // Attach the model to the table where have the secret and the codes
-        $castleCode           = new CastleCode();
-        $castleCode->model    = get_class($this);
-        $castleCode->model_id = $this->id;
-        $castleCode->secret   = encrypt($syncCode['secret']);
-        $castleCode->codes    = $syncCode['back_up_code'];
-        $castleCode->save();
+        // Check if the model already has a autenticator attach
+        if ($this->twoStepsEnable() == false) {
+            // Call the class
+            $autenticatorHandle = new AutenticatorHandle();
+            // Generate the backup codes based in the secret
+            $syncCode           = $autenticatorHandle->generateBackupCodes($secret);
+            // Attach the model to the table where have the secret and the codes
+            $castleCode           = new CastleCode();
+            $castleCode->model    = get_class($this);
+            $castleCode->model_id = $this->id;
+            $castleCode->secret   = encrypt($syncCode['secret']);
+            $castleCode->codes    = $syncCode['back_up_code'];
+            $castleCode->save();
+
+            return [
+                'message' => 'User autenticator enable',
+                'status'  => true,
+            ];
+        } else {
+            return [
+                'message' => 'User already have a autenticator enable',
+                'status'  => false,
+            ];
+        }
     }
 
     /**

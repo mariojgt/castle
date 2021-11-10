@@ -5,6 +5,7 @@ namespace Mariojgt\Castle\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Mariojgt\Castle\Helpers\AutenticatorHandle;
 
@@ -27,12 +28,15 @@ class WallAutentication extends Controller
         $autenticatorHandle = new AutenticatorHandle();
         // Check if the code is valid if yes we can redirect the user tho the correct place
         if ($autenticatorHandle->checkCode(Request('code'))) {
-            // Create some varaible so the user can be autenticate and pass the middlewhere
-            Session::put('castle_wall_autenticate', true); // means the user can pass the middlewhere
-            Session::put('castle_wall_last_sync', Carbon::now()); // the last time him did as sync
+            // If the user pass the one time password we can now login using the session
+            $autenticatorHandle->login();
             // Return to the next request
             return redirect()->route(config('castle.sucess_login_route'));
         } else {
+            // Logout the user
+            Auth::logout();
+            // Remove any session related to the autenticator
+            $autenticatorHandle->logout();
             // Else return back with error
             return redirect()->back()->with('error', 'Credentials do not match');
         }

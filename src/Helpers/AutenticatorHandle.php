@@ -3,9 +3,11 @@
 namespace Mariojgt\Castle\Helpers;
 
 use Google2FA;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Http\Response;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Session;
+use Mariojgt\Castle\Model\CastleCode;
 
 class AutenticatorHandle
 {
@@ -73,6 +75,15 @@ class AutenticatorHandle
         return true;
     }
 
+    public function login()
+    {
+        // Create some varaible so the user can be autenticate and pass the middlewhere
+        Session::put('castle_wall_autenticate', true); // means the user can pass the middlewhere
+        Session::put('castle_wall_last_sync', Carbon::now()); // the last time him did as sync
+
+        return true;
+    }
+
     /**
      * Return the view where the user can autenticate using the autenticator code
      * @return [type]
@@ -104,5 +115,71 @@ class AutenticatorHandle
             'back_up_code' => json_encode($codes),
             'secret'       => $secret,
         ];
+    }
+
+    /**
+     * This fuction the user will type his valid backup code and we goin to check so the user
+     * can acess the next request
+     * @param mixed $code
+     *
+     * @return [type]
+     */
+    public function useBackupCode($backupCode, $encryptAutenticatorSecret = null)
+    {
+        // If empty it comes from the session note that we descypt that before
+        if (empty($encryptAutenticatorSecret)) {
+            $encryptAutenticatorSecret = Session::get('autenticator_key');
+        }
+
+        $backupCodes = CastleCode::where('secret', $encryptAutenticatorSecret)->first();
+
+        if (empty($backupCodes)) {
+            return [
+                'message' => 'Autenticator code not found.',
+                'status'  => false
+            ];
+        } else {
+            $codes = json_decode($backupCodes->codes);
+            foreach ($codes as $key => $code) {
+                // Descrypt the database code and compare to the user
+                $decodeCode = decrypt($code->code);
+                // Compare the string that the user type with the one stored in the database
+                if ($decodeCode == $backupCode) {
+                    if ($code->used == 'true') {
+                        return [
+                            'message' => 'Code already used',
+                            'status'  => false
+                        ];
+                    } else {
+                        // Mark this code as used
+                        $codes[$key]->used  = 'true';
+                        $backupCodes->codes = json_encode($codes);
+                        $backupCodes->save();
+                        // Login the user because at this poin the code is valid
+                        $this->login();
+                        return [
+                            'message' => 'Valid Code',
+                            'status'  => true
+                        ];
+                    }
+                    break;
+                }
+            }
+
+            return [
+                'message' => 'Code not found',
+                'status'  => false
+            ];
+        }
+    }
+
+    /**
+     * This method will remove the twosetps verification for the user
+     *
+     * @return [type]
+     */
+    public function removeTwoStepsAutenticator()
+    {
+        # code...
     }
 }
