@@ -136,6 +136,7 @@ class AutenticatorHandle
             $encryptAutenticatorSecret = Session::get('autenticator_key');
         }
 
+        // Try to find that key backup codes
         $backupCodes = CastleCode::where('secret', $encryptAutenticatorSecret)->first();
 
         if (empty($backupCodes)) {
