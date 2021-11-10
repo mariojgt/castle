@@ -6,8 +6,9 @@ use Google2FA;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Session;
 use Mariojgt\Castle\Model\CastleCode;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Session;
 
 class AutenticatorHandle
 {
@@ -182,8 +183,8 @@ class AutenticatorHandle
      *
      * @return [type]
      */
-    public function removeTwoStepsAutenticator()
+    public function removeTwoStepsAutenticator(Model $model)
     {
-        # code...
+        $model->modelItem()->delete();
     }
 }

@@ -3,7 +3,6 @@
 namespace Mariojgt\Castle\Trait;
 
 use Mariojgt\Castle\Model\CastleCode;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
 use Mariojgt\Castle\Helpers\AutenticatorHandle;
 
