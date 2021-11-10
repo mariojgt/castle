@@ -75,6 +75,10 @@ class AutenticatorHandle
         return true;
     }
 
+    /**
+     * Createa the need session varaibles so the user can login in the system without the twoStepsVerification
+     * @return [type]
+     */
     public function login()
     {
         // Create some varaible so the user can be autenticate and pass the middlewhere
