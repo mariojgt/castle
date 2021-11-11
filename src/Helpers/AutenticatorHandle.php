@@ -115,7 +115,7 @@ class AutenticatorHandle
                 'used' => false
             ];
         }
-        // return the code and the secret encrypted for extra security
+        // Return the code and the secret encrypted for extra security
         return [
             'back_up_code' => json_encode($codes),
             'secret'       => $secret,
@@ -181,11 +181,13 @@ class AutenticatorHandle
 
     /**
      * This method will remove the twosetps verification for the user
+     * @param Model $model
      *
      * @return [type]
      */
     public function removeTwoStepsAutenticator(Model $model)
     {
         $model->modelItem()->delete();
+        return true;
     }
 }

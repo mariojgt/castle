@@ -48,11 +48,11 @@ class CastleWall
                 // Now we need to check if the session is expired
                 $date = Carbon::parse(Session::get('castle_wall_last_sync'));
                 $now  = Carbon::now();
-                // check the session diference in minutes
+                // Check the session diference in minutes
                 $diff = $date->diffInMinutes($now);
                 // If true we need to make the user autenticate again
                 if ($diff >= config('castle.castle_wall_session_time')) {
-                    // render the autenticator view where the user need to type the code
+                    // Render the autenticator view where the user need to type the code
                     return $autenticatorHandle->renderWallAutentication();
                 }
                 return $next($request);
