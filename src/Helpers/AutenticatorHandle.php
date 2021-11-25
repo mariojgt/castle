@@ -36,7 +36,7 @@ class AutenticatorHandle
             $registration_data['google2fa_secret']
         );
 
-        // Return the generated code
+        // Return the generated qr-code and the secret in text format
         return [
             'qr_code'       => $QR_Image,
             'secret'        => $registration_data['google2fa_secret']
@@ -44,7 +44,7 @@ class AutenticatorHandle
     }
 
     /**
-     * Validate the autenticator code
+     * Validate the autenticator code, this will return true or false
      * @param mixed $one_time_password
      * @param null $key
      *
@@ -61,7 +61,7 @@ class AutenticatorHandle
     }
 
     /**
-     * When you logout from the aplication call this mehtod so we reset the one time password
+     * When you logout from the aplication call this method so we reset the one time password
      * @return [type]
      */
     public function logout()
@@ -107,11 +107,12 @@ class AutenticatorHandle
      */
     public function generateBackupCodes($secret)
     {
+        // Array of backup codes
         $codes = [];
-        // Loop 10 imes and generate 10 codes based in the autenticator secret
+        // Generate the backup codes 10 times means 10 backup codes
         for ($i = 1; $i <= 10; $i++) {
             $codes[$i] = [
-                'code' => encrypt($secret . '_' . Str::uuid()),
+                'code' => encrypt($secret . '_' . Str::random(10)),
                 'used' => false
             ];
         }
@@ -138,7 +139,7 @@ class AutenticatorHandle
 
         // Try to find that key backup codes
         $backupCodes = CastleCode::where('secret', $encryptAutenticatorSecret)->first();
-
+        // If not found return false
         if (empty($backupCodes)) {
             return [
                 'message' => 'Autenticator code not found.',

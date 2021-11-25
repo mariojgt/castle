@@ -52,12 +52,6 @@ class Install extends Command
 
         // Migrate
         Artisan::call('migrate');
-        // Cache the config
-        // Artisan::call('config:cache');
-        // Cache the views
-        // Artisan::call('view:cache');
-        // Cache the routes
-        // Artisan::call('route:cache');
 
         $this->newLine();
         $this->info('The command was successful!');

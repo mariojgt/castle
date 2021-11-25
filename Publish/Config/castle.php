@@ -2,7 +2,7 @@
 
 return [
     // Current package
-    'version'         => '0.0.2',
+    'version'         => '0.0.3',
 
     // If disable users Can't register in the website
     // IF IN PRODUCTION CHANGE THIS TO FALSE
@@ -11,6 +11,6 @@ return [
     // If disable users Can't register in the website
     'sucess_login_route' => 'castle.try',
 
-    // Caslte wall middlewhere session time
+    // Castle wall middlewhere session time
     'castle_wall_session_time' => 60,
 ];

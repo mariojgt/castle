@@ -1,6 +1,5 @@
-<form action="{{ $action ?? '/' }}" method="{{ $method ?? 'POST' }}"
-    {{ $file ?? '' == "true" ? 'enctype=multipart/form-data' : "" }}
->
+<form action="{{ $action ?? '/' }}" method="{{ $method ?? 'POST' }}" {{ $file ?? ''=="true"
+    ? 'enctype=multipart/form-data' : "" }}>
     @csrf
 
     {{ $slot }}

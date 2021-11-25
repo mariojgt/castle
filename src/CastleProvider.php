@@ -33,7 +33,8 @@ class CastleProvider extends ServiceProvider
         }
 
         // Loading Custom middlewhere
-        // use this middlewhere as the following 2fa:admin 2fa => middlewhere admin => guard example
+        // use this middlewhere as the following 2fa:admin
+        // 2fa is middlewhere, admin is guard example
         $this->app['router']->aliasMiddleware(
             '2fa', // Name we need to use for this middlewhere
             \Mariojgt\Castle\Middleware\CastleWall::class

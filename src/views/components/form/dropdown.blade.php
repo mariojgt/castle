@@ -2,9 +2,9 @@
 border-2 dark:border-white dark:text-white dark:hover:text-black dark:hover:bg-white
 border-purple-600 text-purple-600 hover:text-white hover:bg-purple-600 rounded
 ">
-{{ $name ?? 'Dropdown' }}
+    {{ $name ?? 'Dropdown' }}
 </a>
 
-    <div class="absolute mt-2 bg-white rounded-md shadow-lg overflow-hidden z-20 hidden" id="{{ $id }}">
-        {{ $slot }}
-    </div>
+<div class="absolute mt-2 bg-white rounded-md shadow-lg overflow-hidden z-20 hidden" id="{{ $id }}">
+    {{ $slot }}
+</div>

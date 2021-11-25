@@ -18,7 +18,9 @@ trait Castle
      */
     public function twoStepsEnable()
     {
+        // get the user backup codes
         $codes = $this->getCodes;
+        // check if the backup codes is not empty
         if (empty($codes)) {
             return false;
         } else {

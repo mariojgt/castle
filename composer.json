@@ -1,8 +1,12 @@
 {
     "name": "mariojgt/castle",
-    "description": "A Laravel Package Castle, a quick start for new laravel Packages",
+    "description": "Simple and easy 2 steps verification integration",
     "keywords": [
-        "laravel"
+        "laravel",
+        "2steps",
+        "autenticator",
+        "2fa verification",
+        "2fa autenticator"
     ],
     "type": "laravel",
     "license": "MIT",

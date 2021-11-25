@@ -4,7 +4,8 @@
             @if ($verification)
             <div class="alert col-span-1 xl:col-span-2 bg-base-100">
                 <div class="flex-1"><label class="mx-3">Congratulations code is correct.</label></div>
-                <div class="flex-none"> <a href="{{ route('castle.try') }}" class="btn btn-sm btn-primary">Try Middlewhere</a></div>
+                <div class="flex-none"> <a href="{{ route('castle.try') }}" class="btn btn-sm btn-primary">Try
+                        Middlewhere</a></div>
             </div>
             @else
             <div class="alert col-span-1 xl:col-span-2 bg-base-100">

@@ -13,6 +13,7 @@ class CreateCastleCodesTable extends Migration
      */
     public function up()
     {
+        // Backup Codes table
         Schema::create('castle_codes', function (Blueprint $table) {
             $table->id();
             $table->string('model')->nullable();
