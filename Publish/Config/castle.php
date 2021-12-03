@@ -2,7 +2,7 @@
 
 return [
     // Current package
-    'version'         => '0.0.3',
+    'version'         => '0.0.4',
 
     // If disable users Can't register in the website
     // IF IN PRODUCTION CHANGE THIS TO FALSE
