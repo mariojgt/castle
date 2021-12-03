@@ -39,7 +39,7 @@ class HomeContoller extends Controller
         $generatedCode      = $autenticatorHandle->generateCode(Request('email'));
 
         // Add the secret in a session so we can check later if match
-        Session::put('autenticator_key', $generatedCode["secret"]);
+        Session::put('autenticator_key', encrypt($generatedCode["secret"]));
 
         return view('Castle::content.home.code_generated', compact('generatedCode'));
     }
