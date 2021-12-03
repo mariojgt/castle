@@ -20,7 +20,7 @@ Route::group([
 
 // Auth Route Example
 Route::group([
-    'middleware' => ['web', 'wall'],
+    'middleware' => ['web', '2fa'],
 ], function () {
     // Example page required to be login
     Route::get('/castle-try', [HomeContoller::class, 'protected'])->name('castle.try');
