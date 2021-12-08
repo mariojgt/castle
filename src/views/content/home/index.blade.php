@@ -2,7 +2,7 @@
     <x-Castle::auth.authconteiner title="Castle">
         <x-slot name="form">
             <x-Castle::form.form action="{{ route('castle.generate') }}">
-                <p class="text-base-content text-opacity-40">Type you email so the autenticator know you you are</p>
+                <p class="text-base-content text-opacity-40">Type You Email in order to create a secret</p>
                 <div class="px-5 py-7">
                     <x-Castle::form.email name="email" label="Your Email" />
                     <x-Castle::form.submit name="Generate Code" />

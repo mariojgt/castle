@@ -4,8 +4,20 @@
             @if ($verification)
             <div class="alert col-span-1 xl:col-span-2 bg-base-100">
                 <div class="flex-1"><label class="mx-3">Congratulations code is correct.</label></div>
-                <div class="flex-none"> <a href="{{ route('castle.try') }}" class="btn btn-sm btn-primary">Try
-                        Middlewhere</a></div>
+                <div class="flex-none">
+
+                    <label for="my-modal-2" class="btn btn-sm btn-primary modal-button">Try Middlewhere</label>
+                        <input type="checkbox" id="my-modal-2" class="modal-toggle">
+                        <div class="modal">
+                        <div class="modal-box">
+                            <p>In Order to proper test the middlewhere you need to have the user login using the normal auth middlewhere, you can also change the guards in the castle.php config file.</p>
+                            <div class="modal-action">
+                            <a href="{{ route('castle.try') }}" class="btn btn-primary">Try Middlewhere</a>
+                            <label for="my-modal-2" class="btn">Close</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             @else
             <div class="alert col-span-1 xl:col-span-2 bg-base-100">

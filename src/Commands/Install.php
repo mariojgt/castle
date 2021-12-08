@@ -40,7 +40,7 @@ class Install extends Command
     {
         // Copy the need file to make the Castle to work
         Artisan::call('vendor:publish', [
-            '--provider' => 'Mariojgt\Castle\SkeletonProvider',
+            '--provider' => 'Mariojgt\Castle\CastleProvider',
             '--force'    => true,
         ]);
 
