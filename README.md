@@ -17,7 +17,5 @@ This will copy the resource assets, run migrations and copy over some config fil
 
 ## How to use
 
-The way it works is you request to the server the code generation based on the email you type,
-that will return a qr_code in svg formater and you secret used to the autenticate in the autentication,
-work with any autentication 2fas, after you display that qrcode and the user sync with his phone you can use that secret to link his account to the secrete and automatic generate encryped backup codes that can be use to recover the account.
+The way it works is you request to the server the code generation based on the email you type, that will return a qr code in svg format and you secret used to the authentication in the authentication, work with any authenticator 2fas, after you display that qrcode and the user sync with his phone you can use that secret to link his account to the secrete and automatic generate encrypted backup codes that can be use to recover the account, more information checkout the demo.
 
