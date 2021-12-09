@@ -81,7 +81,7 @@ Auth()->user()->getCodes; // this will return the backup codes for that user
 ```php
 use Mariojgt\Castle\Helpers\AutenticatorHandle;
 
-mycalss {
+myclass {
 
 	public myFuction () {
 		 // Start the class that handle most of the logic
