@@ -9,7 +9,11 @@ class CastleCode extends Model
 {
     use HasFactory;
 
-    public function modelItem()
+    /**
+     * This fuction will return the model related to the code
+     * @return [type]
+     */
+    public function castleModelItem()
     {
         return $this->morphTo('castle_codes', 'model', 'model_id');
     }

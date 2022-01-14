@@ -31,7 +31,7 @@ trait Castle
     }
 
     /**
-     * This fuction attach the model to that autenticator secrete and generate backup codes
+     * This Fuction will sync the model(user) to the secret key
      * @param mixed $secret
      *
      * @return [type]

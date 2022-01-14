@@ -188,7 +188,7 @@ class AutenticatorHandle
      */
     public function removeTwoStepsAutenticator(Model $model)
     {
-        $model->modelItem()->delete();
+        $model->castleModelItem()->delete();
         return true;
     }
 }
