@@ -10,7 +10,8 @@ return [
 
     // If disable users Can't register in the website
     'sucess_login_route' => 'castle.try',
-
+    // If true means that the session can expire and will ask the autentication again
+    'castle_session_can_expire' => true,
     // Castle wall middlewhere session time
-    'castle_wall_session_time' => 60,
+    'castle_wall_session_time'  => 60,
 ];
