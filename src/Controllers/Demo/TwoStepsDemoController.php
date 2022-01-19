@@ -6,12 +6,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Mariojgt\Castle\Helpers\AutenticatorHandle;
+use Mariojgt\Castle\Helpers\SystemInfo;
 
 /**
  * The controller is used only for the demo, it cointains the basic to get stated wit the 2 steps verification
  * [Description HomeContoller]
  */
-class HomeContoller extends Controller
+class TwoStepsDemoController extends Controller
 {
     /**
      * Render the page where you are able to ype your email so we can generate the code
@@ -19,7 +20,10 @@ class HomeContoller extends Controller
      */
     public function index()
     {
-        return view('Castle::content.home.index');
+        $manager = new SystemInfo();
+        $version = $manager->systemVersion();
+
+        return view('Castle::content.home.index', compact('version'));
     }
 
     /**

@@ -55,13 +55,12 @@ class CastleProvider extends ServiceProvider
 
         // Hide or display the demo route
         if (config('castle.demo_enable')) {
-            $this->loadRoutesFrom(__DIR__ . '/Routes/demo.php');
+            $this->loadRoutesFrom(__DIR__ . '/Routes/2stepsDemo.php');
+            $this->loadRoutesFrom(__DIR__ . '/Routes/emailVerificationDemo.php');
         }
 
         // Load Migrations
         $this->loadMigrationsFrom(__DIR__ . '/Database/Migrations');
-
-        //
     }
 
     /**
