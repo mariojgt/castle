@@ -10,7 +10,7 @@ class SystemInfo
 {
     public function systemVersion()
     {
-        return 'v0.0.7-beta.3';
+        return 'v1.0.0-beta.1';
     }
 
     public function systemUpdates()
