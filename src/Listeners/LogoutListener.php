@@ -13,7 +13,7 @@ class LogoutListener
      */
     public function __construct()
     {
-        //
+        // you can add some more varaible in here
     }
 
     /**
