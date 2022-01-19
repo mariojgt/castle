@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Mariojgt\Castle\Controllers\HomeContoller;
-use Mariojgt\Castle\Controllers\WallAutentication;
+use Mariojgt\Castle\Controllers\Demo;
 
 // Standard
 Route::group([

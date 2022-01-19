@@ -5,11 +5,15 @@ namespace Mariojgt\Castle\Helpers;
 use Google2FA;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
-use Illuminate\Http\Response;
 use Mariojgt\Castle\Model\CastleCode;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
+use App\Helpers\CastleHelper;
 
+/**
+ * This class will be use to handle the 2 steps autentications
+ * [Description AutenticatorHandle]
+ */
 class AutenticatorHandle
 {
     /**
@@ -95,7 +99,8 @@ class AutenticatorHandle
      */
     public function renderWallAutentication()
     {
-        return new Response(view('Castle::content.autentication.index'));
+        $castleHelper = new CastleHelper();
+        return $castleHelper->overrideWallAuthentication();
     }
 
     /**

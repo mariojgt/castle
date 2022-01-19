@@ -1,6 +1,6 @@
 <?php
 
-namespace Mariojgt\Castle\Controllers;
+namespace Mariojgt\Castle\Controllers\Demo;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

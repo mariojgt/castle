@@ -17,9 +17,4 @@ class CastleCode extends Model
     {
         return $this->morphTo('castle_codes', 'model', 'model_id');
     }
-
-    // public function autenticatedModel()
-    // {
-    //     return $this->morphOne(OrderItem::class, 'order_items', 'model', 'model_id');
-    // }
 }

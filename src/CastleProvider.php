@@ -8,6 +8,7 @@ use Mariojgt\Castle\Commands\Install;
 use Mariojgt\Castle\Commands\Republish;
 use Mariojgt\Castle\Events\UserVerifyEvent;
 use Mariojgt\Castle\Listeners\SendUserVerifyListener;
+use Illuminate\Auth\Events\Logout;
 
 class CastleProvider extends ServiceProvider
 {
@@ -21,6 +22,12 @@ class CastleProvider extends ServiceProvider
         // Event for when you create a new user
         Event::listen(
             UserVerifyEvent::class,
+            [SendUserVerifyListener::class, 'handle']
+        );
+
+        // On system logout event
+        Event::listen(
+            Logout::class,
             [SendUserVerifyListener::class, 'handle']
         );
 
@@ -85,6 +92,11 @@ class CastleProvider extends ServiceProvider
         // Publish the public folder
         $this->publishes([
             __DIR__ . '/../Publish/Config/' => config_path('/'),
+        ]);
+
+        // Publish the helper so any other user can change the autentication page
+        $this->publishes([
+            __DIR__ . '/../Publish/Helper/' => app_path('Helpers/'),
         ]);
     }
 }
