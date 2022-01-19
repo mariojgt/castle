@@ -1,9 +1,6 @@
 <?php
 
 return [
-    // Current package
-    'version'         => '0.0.6',
-
     // If disable users Can't register in the website
     // IF IN PRODUCTION CHANGE THIS TO FALSE
     'demo_enable' => true,

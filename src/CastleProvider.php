@@ -60,6 +60,8 @@ class CastleProvider extends ServiceProvider
 
         // Load Migrations
         $this->loadMigrationsFrom(__DIR__ . '/Database/Migrations');
+
+        //
     }
 
     /**
