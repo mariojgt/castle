@@ -55,7 +55,7 @@ jobs:
             {
                 public function systemVersion()
                 {
-                    return '"${{ steps.tag.outputs.new_tag }}"';
+                    return ""${{ steps.tag.outputs.new_tag }}""";
                 }
             }
            > SystemInfo.php
