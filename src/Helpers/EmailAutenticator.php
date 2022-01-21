@@ -46,7 +46,7 @@ class EmailAutenticator
     }
 
     /**
-     * Check if the email is already in the database if yes then delete it
+     * Check if the email is already in the database if yes then delete it with the code
      * @param mixed $email
      *
      * @return [type]
