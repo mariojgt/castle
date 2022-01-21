@@ -3,6 +3,7 @@
 namespace Mariojgt\Castle\Listeners;
 
 use Mariojgt\Castle\Helpers\AutenticatorHandle;
+use Mariojgt\Castle\Helpers\EmailAutenticator;
 
 class LogoutListener
 {
@@ -22,7 +23,11 @@ class LogoutListener
      */
     public function handle()
     {
+        // 2 steps to make the autentication varaibles are reset
         $castleHelperManager = new AutenticatorHandle();
         $castleHelperManager->logout();
+
+        $emailAutenticator = new EmailAutenticator();
+        $emailAutenticator->logout();
     }
 }
