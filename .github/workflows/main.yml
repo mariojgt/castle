@@ -68,8 +68,8 @@ jobs:
       - name: Commit changes
         if: steps.tag.outputs.part
         run: |
-          git config --global user.email  "noreply@dsmdesign.co.uk"
-          git config --global user.name  "AdminUI Action"
+          git config --global user.email  "mariojgt@gmail.com"
+          git config --global user.name  "mariojgt tarosso"
           git add .
           git commit -m "Github Action compiled resources"
           git push
