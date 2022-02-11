@@ -85,7 +85,7 @@ use Mariojgt\Castle\Helpers\AutenticatorHandle;
 
 myclass {
 
-	public myFuction () {
+	public myFunction () {
 		 // Start the class that handle most of the logic
 		$handle = new AutenticatorHandle();
 		$handle->useBackupCode($codeYouType, $encryptAutenticatorSecret); // The second parameter is not required
