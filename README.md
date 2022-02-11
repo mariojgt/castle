@@ -59,7 +59,7 @@ class myController
     }
 ```
 
-3: At this point the authenticator is enabled again that user, now you need to protect the middlewhere here is a example
+3: At this point the authenticator is enabled against that user, now you need to protect the middlewhere here is a example
 
 ```php
 // Auth Route Example
