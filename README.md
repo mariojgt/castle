@@ -88,6 +88,7 @@ myclass {
 	public myFunction () {
 		 // Start the class that handle most of the logic
 		$handle = new AutenticatorHandle();
+		// the encryption is using the normal laravel encrypt fuction // example encrypt('user_secret')
 		$handle->useBackupCode($codeYouType, $encryptAutenticatorSecret); // The second parameter is not required
 	}
 
