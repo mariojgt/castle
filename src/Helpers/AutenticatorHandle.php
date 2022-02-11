@@ -10,6 +10,9 @@ use Mariojgt\Castle\Model\CastleCode;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
 
+/**
+ * This class will handle the autenticator code class
+ */
 class AutenticatorHandle
 {
     /**

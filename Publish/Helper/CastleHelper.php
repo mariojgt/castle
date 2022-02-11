@@ -5,6 +5,10 @@ namespace App\Helpers;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
+/**
+ * This helper will be use to render the 2fa autentication pages error
+ * we can also return a response to the user or a api responce
+ */
 class CastleHelper
 {
 

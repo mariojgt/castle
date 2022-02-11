@@ -8,7 +8,7 @@ This Laravel packages has been design to quickly add 2 steps verifications i am 
 -   [ ] 2 steps autentication.
 - [ ] middlewhere protection.
 
-  
+
 
 ### First option via composer
 
@@ -47,12 +47,12 @@ this will insure you have access to the backup codes
 ```php
 use Mariojgt\Castle\Helpers\AutenticatorHandle;
 
-class myController 
+class myController
 {
     public register () {
 	    // Start the class that handle most of the logic
 	    $handle = new AutenticatorHandle();
-	    // Generate the code 
+	    // Generate the code
 		$codeInfo =	    $handle->generateCode($userEmail);
 		// Sync that code with the user using the trait
 		Auth()->user()->syncAutenticator($codeInfo['secret']);

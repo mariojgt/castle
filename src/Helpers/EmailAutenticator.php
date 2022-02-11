@@ -4,18 +4,14 @@ namespace Mariojgt\Castle\Helpers;
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
-use App\Helpers\CastleHelper;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use Mariojgt\Castle\Model\CastleCode;
 use Mariojgt\Castle\Model\EmailVerify;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
 use Mariojgt\Castle\Mail\SendVerificationEmail;
 
 /**
  * This Class will handle the email autentication
- * [Description EmailAutenticator]
  */
 class EmailAutenticator
 {
