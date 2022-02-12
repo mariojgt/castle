@@ -7,7 +7,7 @@ This Laravel packages has been design to quickly add 2 steps verifications i am 
 -   [ ] Demo with the example flow you need.
 -   [ ] 2 steps autentication.
 - [ ] middlewhere protection.
-
+- laravel 9
 
 
 ### First option via composer
