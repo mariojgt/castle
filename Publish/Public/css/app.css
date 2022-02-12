@@ -81,7 +81,7 @@
 }
 
 /*
-! tailwindcss v3.0.15 | MIT License | https://tailwindcss.com
+! tailwindcss v3.0.22 | MIT License | https://tailwindcss.com
 */
 /*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
@@ -1516,6 +1516,21 @@ html{
   color: hsla(var(--nc) / var(--tw-text-opacity, 1));
   z-index: 20;
 }
+.checkbox{
+  flex-shrink: 0;
+  --chkbg: var(--bc);
+  --chkfg: var(--b1);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  --tw-border-opacity: 0.2;
+  border-color: hsla(var(--bc) / var(--tw-border-opacity, 1));
+  border-width: 1px;
+  cursor: pointer;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: var(--rounded-btn, .5rem);
+}
 .checkbox:focus{
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -1523,7 +1538,6 @@ html{
 .drawer{
   display: grid;
   overflow: hidden;
-  max-height: 100vh;
 }
 .drawer.drawer-end{
   direction: rtl;
@@ -1599,7 +1613,8 @@ html{
 }
 .drawer-toggle:checked~.drawer-side>.drawer-overlay{
   visibility: visible;
-  opacity: .4;
+  opacity: .999999;
+  --tw-bg-opacity: 0.4;
 }
 .drawer-toggle:checked~.drawer-side>.drawer-overlay+*{
   --tw-translate-x: 0px;
@@ -1669,11 +1684,6 @@ html{
   }
   .drawer-mobile>.drawer-toggle:checked~.drawer-content{
     --tw-translate-x: 0px;
-  }
-}
-@supports (-webkit-touch-callout:none){
-  .drawer{
-    max-height: -webkit-fill-available;
   }
 }
 .dropdown{
@@ -2065,7 +2075,7 @@ html{
   outline: 2px solid transparent;
   outline-offset: 2px;
 }
-.avatar-group .avatar{
+.avatar-group :where(.avatar){
   --tw-border-opacity: 1;
   border-color: hsla(var(--b1) / var(--tw-border-opacity, 1));
   border-radius: 9999px;
@@ -2335,20 +2345,6 @@ html{
 .card-actions:last-child{
   margin-top: 1.5rem;
 }
-.checkbox{
-  --chkbg: var(--bc);
-  --chkfg: var(--b1);
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  --tw-border-opacity: 0.2;
-  border-color: hsla(var(--bc) / var(--tw-border-opacity, 1));
-  border-width: 1px;
-  cursor: pointer;
-  height: 1.5rem;
-  width: 1.5rem;
-  border-radius: var(--rounded-btn, .5rem);
-}
 .checkbox:focus-visible{
   box-shadow: 0 0 0 2px hsl(var(--b1)), 0 0 0 4px hsl(var(--bc));
 }
@@ -2359,6 +2355,14 @@ html{
   -webkit-animation: checkmark var(--animation-input, .2s)  ease-in-out;
   animation: checkmark var(--animation-input, .2s)  ease-in-out;
   background-image: linear-gradient(-45deg, transparent 65%, hsl(var(--chkbg)) 0), linear-gradient(45deg, transparent 75%, hsl(var(--chkbg)) 0), linear-gradient(-45deg, hsl(var(--chkbg)) 40%, transparent 0), linear-gradient(45deg, hsl(var(--chkbg)) 30%, hsl(var(--chkfg)) 0, hsl(var(--chkfg)) 40%, transparent 0), linear-gradient(-45deg, hsl(var(--chkfg)) 50%, hsl(var(--chkbg)) 0);
+}
+.checkbox:indeterminate{
+  --tw-bg-opacity: 1;
+  background-color: hsla(var(--bc) / var(--tw-bg-opacity, 1));
+  background-repeat: no-repeat;
+  -webkit-animation: checkmark var(--animation-input, .2s)  ease-in-out;
+  animation: checkmark var(--animation-input, .2s)  ease-in-out;
+  background-image: linear-gradient(90deg, transparent 80%, hsl(var(--chkbg)) 0), linear-gradient(-90deg, transparent 80%, hsl(var(--chkbg)) 0), linear-gradient(0deg, hsl(var(--chkbg)) 43%, hsl(var(--chkfg)) 0, hsl(var(--chkfg)) 57%, hsl(var(--chkbg)) 0);
 }
 .checkbox:disabled{
   --tw-bg-opacity: 1;
@@ -2705,6 +2709,15 @@ html{
 [dir=rtl] .toggle:checked,[dir=rtl] .toggle[checked=true]{
   box-shadow: calc(var(--handleoffset)*1) 0 0 2px hsl(var(--b1)) inset, 0 0 0 2px hsl(var(--b1)) inset, var(--focus-shadow);
 }
+.toggle:indeterminate{
+  --chkbg: hsl(var(--bc));
+  --tw-bg-opacity: 1;
+  --tw-border-opacity: 1;
+  box-shadow: calc(var(--handleoffset)/2) 0 0 2px hsl(var(--b1)) inset, calc(var(--handleoffset)/-2) 0 0 2px hsl(var(--b1)) inset, 0 0 0 2px hsl(var(--b1)) inset, var(--focus-shadow);
+}
+[dir=rtl] .toggle:indeterminate{
+  box-shadow: calc(var(--handleoffset)/2) 0 0 2px hsl(var(--b1)) inset, calc(var(--handleoffset)/-2) 0 0 2px hsl(var(--b1)) inset, 0 0 0 2px hsl(var(--b1)) inset, var(--focus-shadow);
+}
 .toggle:disabled{
   --tw-bg-opacity: 0.2;
   background-color: hsla(var(--bc) / var(--tw-bg-opacity, 1));
@@ -2720,6 +2733,9 @@ html{
   padding-right: .75rem;
   min-height: 2rem;
   font-size: .875rem;
+}
+.btn-block{
+  width: 100%;
 }
 .btn-square:where(.btn-xs){
   height: 1.5rem;

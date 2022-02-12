@@ -26,7 +26,7 @@ class LogoutListener
         // 2 steps to make the autentication varaibles are reset
         $castleHelperManager = new AutenticatorHandle();
         $castleHelperManager->logout();
-
+        // On logout remove he email session
         $emailAutenticator = new EmailAutenticator();
         $emailAutenticator->logout();
     }

@@ -4,6 +4,8 @@ namespace Mariojgt\Castle\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Helpers\CastleHelper;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -21,8 +23,10 @@ class WallAutentication extends Controller
     {
         // Make sure the code has 6 digits
         $request->validate([
-            'code'       => 'required|integer|digits:6',
+            'code'       => 'required|digits:6',
         ]);
+
+        $castleHelper = new CastleHelper();
 
         // This will check if the type code is valid
         $autenticatorHandle = new AutenticatorHandle();
@@ -31,14 +35,39 @@ class WallAutentication extends Controller
             // If the user pass the one time password we can now login using the session
             $autenticatorHandle->login();
             // Return to the next request
-            return redirect()->route(config('castle.sucess_login_route'));
+            return $castleHelper->onAuthenticationSuccess($request);
         } else {
-            // Logout the user
-            Auth::logout();
-            // Remove any session related to the autenticator
-            $autenticatorHandle->logout();
-            // Else return back with error
-            return redirect()->back()->with('error', 'Credentials do not match');
+            return $castleHelper->onAuthenticationError($request);
+        }
+    }
+
+    public function tryUseBackupcode(Request $request)
+    {
+        // Make sure the code has 6 digits
+        $request->validate([
+            'code'       => 'required',
+        ]);
+
+        $castleHelper = new CastleHelper();
+
+        // This will check if the type code is valid
+        $autenticatorHandle = new AutenticatorHandle();
+        $code               = $autenticatorHandle->useBackupCode(Request('code'));
+
+        // Check if the code is valid if yes we can redirect the user tho the correct place
+        if ($code) {
+            // Get the currect guard comes from the castle_middleware
+            $currentGuard = Session::get('castle_wall_current_guard');
+            // Get the currect login user information
+            $user = Auth::guard($currentGuard)->user();
+            // If the user pass the one time password we can now login using the session
+            $autenticatorHandle->login();
+            // and now we remove the two steps autenticator
+            $autenticatorHandle->removeTwoStepsAutenticator($user);
+            // Return to the next request
+            return $castleHelper->onAuthenticationSuccess($request);
+        } else {
+            return $castleHelper->onAuthenticationError($request);
         }
     }
 }

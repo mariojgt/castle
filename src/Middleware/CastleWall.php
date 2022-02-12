@@ -41,6 +41,8 @@ class CastleWall
 
                 // Check if the user has already pass 2 steps autentication
                 if (empty(Session::get('castle_wall_autenticate'))) {
+                    // Create the session telling us waht is the current guard
+                    Session::put('castle_wall_current_guard', $guard);
                     // render the autenticator view where the user need to type the code
                     return $autenticatorHandle->renderWallAutentication();
                 }

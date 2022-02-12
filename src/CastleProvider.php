@@ -2,13 +2,14 @@
 
 namespace Mariojgt\Castle;
 
+use Illuminate\Auth\Events\Logout;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\ServiceProvider;
 use Mariojgt\Castle\Commands\Install;
+use Illuminate\Support\ServiceProvider;
 use Mariojgt\Castle\Commands\Republish;
 use Mariojgt\Castle\Events\UserVerifyEvent;
+use Mariojgt\Castle\Listeners\LogoutListener;
 use Mariojgt\Castle\Listeners\SendUserVerifyListener;
-use Illuminate\Auth\Events\Logout;
 
 class CastleProvider extends ServiceProvider
 {
@@ -28,7 +29,7 @@ class CastleProvider extends ServiceProvider
         // On system logout event
         Event::listen(
             Logout::class,
-            [SendUserVerifyListener::class, 'handle']
+            [LogoutListener::class, 'handle']
         );
 
         // Load some commands
