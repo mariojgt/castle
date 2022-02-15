@@ -2,30 +2,16 @@
 
 namespace Mariojgt\Castle\Helpers;
 
+use Google2FA;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Response;
 use Mariojgt\Castle\Model\CastleCode;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
-use PragmaRX\Google2FA\Google2FA;
-use BaconQrCode\Renderer\ImageRenderer;
-use BaconQrCode\Renderer\Image\SvgImageBackEnd;
-use BaconQrCode\Renderer\RendererStyle\RendererStyle;
-use BaconQrCode\Writer;
-use App\Helpers\CastleHelper;
 
-/**
- * This class will handle the autenticator code class
- */
 class AutenticatorHandle
 {
-    public function __construct()
-    {
-        $this->google2fa    = new Google2FA();
-        $this->castleHelper = new CastleHelper();
-    }
-
     /**
      * Generate the autenticator code and the qrcode string
      * @param string $email
@@ -34,48 +20,29 @@ class AutenticatorHandle
      */
     public function generateCode($email = "youtemail@email.com")
     {
-        // Generate the code using the google2fa library
-        $secretKey = $this->google2fa->generateSecretKey();
-
+        // Initialise the 2FA class
+        $google2fa = app('pragmarx.google2fa');
         // Add the secret key to the registration data
-        $registration_data["google2fa_secret"] = $secretKey;
+        $registration_data["google2fa_secret"] = $google2fa->generateSecretKey();
         // Email
         $registration_data['email'] = $email;
+
         // Generate the QR image. This is the image the user will scan with their app
         // To set up two factor authentication
         // OR Google2FA::getQRCodeInline
-        $qrCodeUrl = $this->generateQrCodeSvg($this->google2fa->getQRCodeUrl(
+        $QR_Image = $google2fa->getQRCodeInline(
             config('app.name'),
             $registration_data['email'],
             $registration_data['google2fa_secret']
-        ));
-
-        // Add the secret to the session
+        );
+        // Add the secret in the session so we can check later
         Session::put('autenticator_key', encrypt($registration_data['google2fa_secret']));
 
         // Return the generated qr-code and the secret in text format
         return [
-            'qr_code'       => $qrCodeUrl,
+            'qr_code'       => $QR_Image,
             'secret'        => $registration_data['google2fa_secret']
         ];
-    }
-
-    /**
-     * Generate the svg qr-code
-     *
-     * @param mixed $urlCode
-     *
-     * @return string [svg]
-     */
-    private function generateQrCodeSvg($urlCode)
-    {
-        $renderer = new ImageRenderer(
-            new RendererStyle(200),
-            new SvgImageBackEnd()
-        );
-
-        $writer = new Writer($renderer);
-        return $writer->writeString($urlCode);
     }
 
     /**
@@ -92,7 +59,8 @@ class AutenticatorHandle
             $key = decrypt(Session::get('autenticator_key'));
         }
 
-        return $this->google2fa->verifyKey($key, $one_time_password);
+        // Verify the code
+        return Google2FA::verifyKey($key, $one_time_password);
     }
 
     /**
@@ -130,7 +98,7 @@ class AutenticatorHandle
      */
     public function renderWallAutentication()
     {
-        return $this->castleHelper->overrideWallAuthentication();
+        return new Response(view('Castle::content.autentication.index'));
     }
 
     /**
@@ -174,7 +142,6 @@ class AutenticatorHandle
 
         // Try to find that key backup codes
         $backupCodes = CastleCode::where('secret', $encryptAutenticatorSecret)->first();
-
         // If not found return false
         if (empty($backupCodes)) {
             return [
@@ -182,8 +149,7 @@ class AutenticatorHandle
                 'status'  => false
             ];
         } else {
-            $codes = collect(json_decode($backupCodes->codes));
-
+            $codes = json_decode($backupCodes->codes);
             foreach ($codes as $key => $code) {
                 // Descrypt the database code and compare to the user
                 $decodeCode = decrypt($code->code);
@@ -199,7 +165,6 @@ class AutenticatorHandle
                         $codes[$key]->used  = 'true';
                         $backupCodes->codes = json_encode($codes);
                         $backupCodes->save();
-
                         // Login the user because at this poin the code is valid
                         $this->login();
                         return [
@@ -226,7 +191,7 @@ class AutenticatorHandle
      */
     public function removeTwoStepsAutenticator(Model $model)
     {
-        $model->getCodes->delete();
+        $model->modelItem()->delete();
         return true;
     }
 }
