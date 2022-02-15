@@ -1,4 +1,4 @@
-# Castle new version
+# Castle
 
 This Laravel packages has been design to quickly add 2 steps verifications i am very simple way and very easy to expand.
 
