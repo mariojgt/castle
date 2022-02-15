@@ -25,7 +25,7 @@ trait Castle
             return false;
         } else {
             // Start the session so we can check the user one time password
-            Session::put('autenticator_key', $codes['secret']);
+            Session::put('autenticator_key', encrypt($codes['secret']));
             return true;
         }
     }
