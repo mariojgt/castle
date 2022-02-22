@@ -1,4 +1,4 @@
-![image info](https://raw.githubusercontent.com/mariojgt/castle/main/Publish/Image/logo.png)
+![image info](https://raw.githubusercontent.com/mariojgt/castle/master/Publish/Art/logo.png)
 
 
 # Castle
