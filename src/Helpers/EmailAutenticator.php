@@ -30,11 +30,13 @@ class EmailAutenticator
         $email = $email;
         // Delete all the codes for this email
         $this->checkEmailCode($email);
+
         // Save in the database
         $emailVerify         = new EmailVerify();
         $emailVerify->email  = $email;
         $emailVerify->secret = $code;
         $emailVerify->save();
+
         Mail::to($email)->send(new SendVerificationEmail($code));
 
         DB::commit();
@@ -76,7 +78,7 @@ class EmailAutenticator
             } else {
                 // Code is valid
                 $emailVerify->delete();
-                Session::put('castle_email_autenticate', true); // means the user can pass the middlewhere
+                Session::put('castle_email_autenticate', true); // Means the user can pass the middlewhere
                 return true;
             }
         } else {

@@ -16,13 +16,14 @@ use BaconQrCode\Writer;
 use App\Helpers\CastleHelper;
 
 /**
- * This class will handle the autenticator code class
+ * This class will handle the autenticator 2fa authentication
  */
 class AutenticatorHandle
 {
     public function __construct()
     {
         $this->google2fa    = new Google2FA();
+        // This is the overide class we goin to use case we need to change the default view location
         $this->castleHelper = new CastleHelper();
     }
 
@@ -30,7 +31,7 @@ class AutenticatorHandle
      * Generate the autenticator code and the qrcode string
      * @param string $email
      *
-     * @return [type]
+     * @return [array]
      */
     public function generateCode($email = "youtemail@email.com")
     {
@@ -147,7 +148,7 @@ class AutenticatorHandle
         // Generate the backup codes 10 times means 10 backup codes
         for ($i = 1; $i <= 10; $i++) {
             $codes[$i] = [
-                'code' => encrypt($secret . '_' . Str::random(10)),
+                'code' => $secret . '_' . Str::random(10),
                 'used' => false
             ];
         }
@@ -182,11 +183,12 @@ class AutenticatorHandle
                 'status'  => false
             ];
         } else {
+            // Decode the codes so we can loop through them
             $codes = collect(json_decode($backupCodes->codes));
 
             foreach ($codes as $key => $code) {
                 // Descrypt the database code and compare to the user
-                $decodeCode = decrypt($code->code);
+                $decodeCode = $code->code;
                 // Compare the string that the user type with the one stored in the database
                 if ($decodeCode == $backupCode) {
                     if ($code->used == 'true') {
@@ -226,6 +228,7 @@ class AutenticatorHandle
      */
     public function removeTwoStepsAutenticator(Model $model)
     {
+        // Remove the autenticator
         $model->getCodes->delete();
         return true;
     }
