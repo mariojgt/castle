@@ -3,11 +3,11 @@
 
 # Castle
 
-This Laravel packages has been design to quickly add 2 steps verifications i am very simple way and very easy to expand.
+This Laravel packages has been design to quickly add 2 steps verifications in am very simple way and very easy to expand.
 
 # Features
 
--   [ ] Demo with the example flow you need.
+-   [ ] Demo with the example application flow you need.
 -   [ ] 2 steps autentication.
 - [ ] middlewhere protection.
 
