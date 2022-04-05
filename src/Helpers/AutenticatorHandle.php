@@ -4,7 +4,6 @@ namespace Mariojgt\Castle\Helpers;
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
-use Illuminate\Http\Response;
 use Mariojgt\Castle\Model\CastleCode;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
@@ -22,6 +21,7 @@ class AutenticatorHandle
 {
     public function __construct()
     {
+        // Google autenticator class
         $this->google2fa    = new Google2FA();
         // This is the overide class we goin to use case we need to change the default view location
         $this->castleHelper = new CastleHelper();
@@ -139,7 +139,7 @@ class AutenticatorHandle
      *
      * @param mixed $secret
      *
-     * @return [type]
+     * @return [array]
      */
     public function generateBackupCodes($secret)
     {
@@ -152,7 +152,7 @@ class AutenticatorHandle
                 'used' => false
             ];
         }
-        // Return the code and the secret encrypted for extra security
+        // Return the codes
         return [
             'back_up_code' => json_encode($codes),
             'secret'       => $secret,
@@ -164,7 +164,7 @@ class AutenticatorHandle
      * can acess the next request
      * @param mixed $code
      *
-     * @return [type]
+     * @return [array]
      */
     public function useBackupCode($backupCode, $encryptAutenticatorSecret = null)
     {

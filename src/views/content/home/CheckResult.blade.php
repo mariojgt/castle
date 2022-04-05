@@ -24,7 +24,7 @@
                 <div class="flex-1"><label class="mx-3">Sorry but your code is wrong, try again</label></div>
                 <x-Castle::form.form action="{{ route('castle.check') }}">
                     <div class="px-5 py-7">
-                        <x-Castle::form.text name="code" label="Type the code here" />
+                        <x-Castle::form.text name="code" requied="true" label="Type the code here" />
                         <x-Castle::form.submit name="Check Code" />
                     </div>
                 </x-Castle::form.form>

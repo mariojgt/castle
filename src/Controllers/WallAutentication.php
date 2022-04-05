@@ -2,16 +2,14 @@
 
 namespace Mariojgt\Castle\Controllers;
 
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Helpers\CastleHelper;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Mariojgt\Castle\Helpers\AutenticatorHandle;
 
-class WallAutentication extends Controller
+class WallAutenticationController extends Controller
 {
     /**
      * Try to check if the code that the user type will be valid, else return to the same page
@@ -25,7 +23,7 @@ class WallAutentication extends Controller
         $request->validate([
             'code'       => 'required|digits:6',
         ]);
-
+        // Castle helper
         $castleHelper = new CastleHelper();
 
         // This will check if the type code is valid
@@ -41,6 +39,13 @@ class WallAutentication extends Controller
         }
     }
 
+    /**
+     * Try to unlock the user using the backup code
+     *
+     * @param Request $request
+     *
+     * @return [type]
+     */
     public function tryUseBackupcode(Request $request)
     {
         // Make sure the code has 6 digits

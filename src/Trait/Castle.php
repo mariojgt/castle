@@ -14,7 +14,7 @@ trait Castle
 {
     /**
      * Get the user autenticator token
-     * @return [type]
+     * @return [boolean]
      */
     public function twoStepsEnable()
     {
@@ -34,7 +34,7 @@ trait Castle
      * This Fuction will sync the model(user) to the secret key
      * @param mixed $secret
      *
-     * @return [type]
+     * @return [array]
      */
     public function syncAutenticator($secret)
     {
@@ -66,7 +66,7 @@ trait Castle
 
     /**
      * Return the model codes relation
-     * @return [type]
+     * @return collection [CastleCode]
      */
     public function getCodes()
     {

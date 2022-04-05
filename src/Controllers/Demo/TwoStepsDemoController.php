@@ -23,7 +23,7 @@ class TwoStepsDemoController extends Controller
         $manager = new SystemInfo();
         $version = $manager->systemVersion();
 
-        return view('Castle::content.home.index', compact('version'));
+        return view('Castle::content.home.Index', compact('version'));
     }
 
     /**
@@ -45,7 +45,7 @@ class TwoStepsDemoController extends Controller
         // Add the secret in a session so we can check later if match
         Session::put('autenticator_key', encrypt($generatedCode["secret"]));
 
-        return view('Castle::content.home.code_generated', compact('generatedCode'));
+        return view('Castle::content.home.CodeGenerated', compact('generatedCode'));
     }
 
     /**
@@ -63,7 +63,7 @@ class TwoStepsDemoController extends Controller
         $autenticatorHandle = new AutenticatorHandle();
         $verification       = $autenticatorHandle->checkCode(Request('code'));
 
-        return view('Castle::content.home.check_result', compact('verification'));
+        return view('Castle::content.home.CheckResult', compact('verification'));
     }
 
     /**
@@ -88,6 +88,6 @@ class TwoStepsDemoController extends Controller
      */
     public function protected(Request $request)
     {
-        return view('Castle::content.home.autenticate');
+        return view('Castle::content.home.Autenticate');
     }
 }
