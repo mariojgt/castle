@@ -3,16 +3,17 @@
 namespace Mariojgt\Castle\Helpers;
 
 use Carbon\Carbon;
+use BaconQrCode\Writer;
 use Illuminate\Support\Str;
+use App\Helpers\CastleHelper;
+use PragmaRX\Google2FA\Google2FA;
+use Illuminate\Support\Facades\Auth;
 use Mariojgt\Castle\Model\CastleCode;
+use BaconQrCode\Renderer\ImageRenderer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
-use PragmaRX\Google2FA\Google2FA;
-use BaconQrCode\Renderer\ImageRenderer;
 use BaconQrCode\Renderer\Image\SvgImageBackEnd;
 use BaconQrCode\Renderer\RendererStyle\RendererStyle;
-use BaconQrCode\Writer;
-use App\Helpers\CastleHelper;
 
 /**
  * This class will handle the autenticator 2fa authentication
@@ -86,14 +87,12 @@ class AutenticatorHandle
      *
      * @return [type]
      */
-    public function checkCode($one_time_password, $key = null)
+    public function checkCode($one_time_password)
     {
-        // If empty it comes from the session note that we descypt that before
-        if (empty($key)) {
-            $key = decrypt(Session::get('autenticator_key'));
-        }
+        $secret        = Auth::guard(Session::get('castle_wall_current_guard'))->user()->getCodes->secret;
+        $secretDecrypt = decrypt($secret);
 
-        return $this->google2fa->verifyKey($key, $one_time_password);
+        return $this->google2fa->verifyKey($secretDecrypt, $one_time_password);
     }
 
     /**

@@ -38,12 +38,15 @@ trait Castle
      */
     public function syncAutenticator($secret)
     {
+        $secret = decrypt($secret);
+
         // Check if the model already has a autenticator attach
         if ($this->twoStepsEnable() == false) {
             // Call the class
             $autenticatorHandle = new AutenticatorHandle();
             // Generate the backup codes based in the secret
             $syncCode           = $autenticatorHandle->generateBackupCodes($secret);
+
             // Attach the model to the table where have the secret and the codes
             $castleCode           = new CastleCode();
             $castleCode->model    = get_class($this);
