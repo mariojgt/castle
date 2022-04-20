@@ -2,8 +2,9 @@
 
 namespace App\Helpers;
 
-use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Session;
 
 /**
  * This helper will be use to render the 2fa autentication pages error
@@ -31,8 +32,10 @@ class CastleHelper
      */
     public function onAuthenticationSuccess(Request $request)
     {
-        // Return to the next request
-        return redirect()->route(config('castle.sucess_login_route'));
+        // The route we want to redirect the user
+        $route = route(config('castle.sucess_login_route.' . Session::get('castle_wall_current_guard')));
+        // Redirect the user to the correct route
+        return redirect()->to($route);
     }
 
     /**

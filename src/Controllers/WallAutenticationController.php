@@ -29,11 +29,13 @@ class WallAutenticationController extends Controller
         // This will check if the type code is valid
         $autenticatorHandle = new AutenticatorHandle();
         // Check if the code is valid if yes we can redirect the user tho the correct place
-        if ($autenticatorHandle->checkCode(Request('code'))) {
+        if ($autenticatorHandle->checkCode(Request('code'))) {;
+            // The route we want to redirect the user
+            $route = route(config('castle.sucess_login_route.' . Session::get('castle_wall_current_guard')));
             // If the user pass the one time password we can now login using the session
             $autenticatorHandle->login();
-            // Return to the next request
-            return $castleHelper->onAuthenticationSuccess($request);
+            // Redirect the user to the correct route
+            return redirect()->to($route);
         } else {
             return $castleHelper->onAuthenticationError($request);
         }

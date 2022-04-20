@@ -89,8 +89,13 @@ class AutenticatorHandle
      */
     public function checkCode($one_time_password)
     {
-        $secret        = Auth::guard(Session::get('castle_wall_current_guard'))->user()->getCodes->secret;
-        $secretDecrypt = decrypt($secret);
+        $secret        = Auth::guard(Session::get('castle_wall_current_guard'))->user()->getCodes;
+        // Check if the user has the autenticator enable else we need to get from the session
+        if (empty($secret)) {
+            $secretDecrypt = decrypt(Session::get('autenticator_key'));
+        } else {
+            $secretDecrypt = decrypt($secret->secret);
+        }
 
         return $this->google2fa->verifyKey($secretDecrypt, $one_time_password);
     }

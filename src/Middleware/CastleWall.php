@@ -32,18 +32,17 @@ class CastleWall
      */
     public function handle($request, Closure $next, $guard = 'web')
     {
+        // Create the session telling us waht is the current guard
+        Session::put('castle_wall_current_guard', $guard);
         // Make sure that the user is login before we can check the autenticator code
         if (Auth::guard($guard)->check()) {
             // Check if the currect user has twoStepsEnable enable if yes we can check
             if (Auth::guard($guard)->user()->twoStepsEnable()) {
                 // Start the autenticator class handle
                 $autenticatorHandle = new AutenticatorHandle();
-
                 // Check if the user has already pass 2 steps autentication
                 if (empty(Session::get('castle_wall_autenticate'))) {
-                    // Create the session telling us waht is the current guard
-                    Session::put('castle_wall_current_guard', $guard);
-                    // render the autenticator view where the user need to type the code
+                    // Render the autenticator view where the user need to type the code
                     return $autenticatorHandle->renderWallAutentication();
                 }
 
