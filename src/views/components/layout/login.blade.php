@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="halloween">
+<html lang="en" data-theme="dracula">
 
 <head>
     <meta charset="UTF-8">
@@ -11,22 +11,21 @@
 </head>
 
 <body>
-
     <div id="app">
+        {{-- Naive ui stuff --}}
         <n-loading-bar-provider>
             <n-message-provider>
                 <n-notification-provider>
                     <n-dialog-provider>
                         <n-config-provider>
-                            {{-- <x-Castle::layout.flash /> --}}
-                            <flashMessage type="success" message="mariojgt" />
-
-                            {{ $slot }}
+                            <x-Castle::layout.flash />
                         </n-config-provider>
                     </n-dialog-provider>
                 </n-notification-provider>
             </n-message-provider>
         </n-loading-bar-provider>
+
+        {{ $slot }}
     </div>
 
     <script src="{{ asset('vendor/Castle/js/app.js') }}" defer></script>

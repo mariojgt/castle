@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Mariojgt\Castle\Controllers\Demo;
 use Mariojgt\Castle\Controllers\Demo\TwoStepsDemoController;
 
 // Standard
