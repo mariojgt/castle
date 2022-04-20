@@ -12,24 +12,25 @@
 
 <body>
 
-    <x-Castle::layout.flash />
-    {{ $slot }}
+    <div id="app">
+        <n-loading-bar-provider>
+            <n-message-provider>
+                <n-notification-provider>
+                    <n-dialog-provider>
+                        <n-config-provider>
+                            {{-- <x-Castle::layout.flash /> --}}
+                            <flashMessage type="success" message="mariojgt" />
 
-    <script src="{{ asset('vendor/Castle/js/app.js') }}"></script>
-    <script src="{{ asset('vendor/Castle/js/vue.js') }}"></script>
-    <script>
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-            });
-    </script>
+                            {{ $slot }}
+                        </n-config-provider>
+                    </n-dialog-provider>
+                </n-notification-provider>
+            </n-message-provider>
+        </n-loading-bar-provider>
+    </div>
+
+    <script src="{{ asset('vendor/Castle/js/app.js') }}" defer></script>
+    <script src="{{ asset('vendor/Castle/js/vue.js') }}" defer></script>
     @stack('js')
 </body>
 

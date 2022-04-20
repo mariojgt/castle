@@ -1,3 +1,6 @@
+
+<flashMessage type="success" message="mariojgt" />
+
 @if ($message = Session::get('success'))
     @push('js')
         <script>

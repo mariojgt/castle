@@ -20,6 +20,7 @@
                 <x-Castle::core.navbar />
                 <x-Castle::layout.flash />
                 <div class="px-6 py-8">
+                    sadasdasd
                     {{ $slot }}
                 </div>
                 {{-- Footer --}}
