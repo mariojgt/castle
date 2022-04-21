@@ -62,7 +62,11 @@ class TwoStepsDemoController extends Controller
 
         $autenticatorHandle = new AutenticatorHandle();
         $verification       = $autenticatorHandle->checkCode(Request('code'));
-
+        // If verification fail
+        if ($verification == false) {
+            // Return a flash message in the session
+            Session::flash('error', 'The code is not valid');
+        }
         return view('Castle::content.home.CheckResult', compact('verification'));
     }
 
