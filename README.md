@@ -3,7 +3,7 @@
 
 # Castle
 
-This Laravel packages has been design to quickly add 2 steps verifications in am very simple way and very easy to expand.
+This Laravel package help you quickly add 2fa authentication in you existing application, simular to google authentication.
 
 # Features
 
