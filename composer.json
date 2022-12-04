@@ -4,9 +4,9 @@
     "keywords": [
         "laravel",
         "2steps",
-        "autenticator",
+        "authenticator",
         "2fa verification",
-        "2fa autenticator"
+        "2fa authenticator"
     ],
     "type": "laravel",
     "license": "MIT",

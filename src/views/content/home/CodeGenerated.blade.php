@@ -1,16 +1,16 @@
-<x-Castle::layout.login>
-    <x-Castle::auth.authconteiner title="Check your code">
+<x-castle::layout.login>
+    <x-castle::auth.authconteiner title="Check your code">
         <x-slot name="form">
-            <p class="text-base-content text-opacity-40">Scan this code using goole autenticator </p>
+            <p class="text-base-content text-opacity-40">Scan this code using goole authenticator </p>
             <p class="text-base-content text-opacity-40">Or other
-                <a class="btn btn-sm" href="https://www.google.com/search?q=2fas+mobile+app&client=firefox-b-d&sxsrf=AOaemvKOgnEfJCJurkfJVcCGYIMkmZ2Z-Q%3A1638969663722&ei=P7GwYdu7K7PB8gKXr5WYBA&oq=2FAS+mobil&gs_lcp=Cgdnd3Mtd2l6EAMYATIFCCEQoAEyBQghEKABOgcIIxCwAxAnOgcIABBHELADOgQIIxAnOgQIABBDOgUIABCABDoGCAAQFhAeOggIABAWEAoQHkoECEEYAFClBFjMF2D7IGgCcAJ4AIABhwGIAYUFkgEDNi4xmAEAoAEByAEKwAEB&sclient=gws-wiz&shem=ssmd" target="_blank" >2FAS</a>
+                <a class="btn btn-sm" href="https://www.google.com/search?q=2fas" target="_blank" >2FAS</a>
             Aplication</p>
-            <x-Castle::form.form action="{{ route('castle.check') }}">
+            <x-castle::form.form action="{{ route('castle.check') }}">
                 <div class="px-5 py-7">
-                    <x-Castle::form.text name="code" label="Type the code here" />
-                    <x-Castle::form.submit name="Check Code" />
+                    <x-castle::form.text name="code" label="Type the code here" />
+                    <x-castle::form.submit name="Check Code" />
                 </div>
-            </x-Castle::form.form>
+            </x-castle::form.form>
         </x-slot>
 
         <x-slot name="links">
@@ -26,6 +26,6 @@
                 </div>
             </div>
         </x-slot>
-    </x-Castle::auth.authconteiner>
+    </x-castle::auth.authconteiner>
 
-</x-Castle::layout.login>
+</x-castle::layout.login>

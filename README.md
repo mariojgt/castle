@@ -9,7 +9,7 @@ This Laravel package help you quickly add 2fa authentication in you existing app
 
 -   [ ] Demo with the example application flow you need.
 -   [ ] 2 steps autentication.
-- [ ] middlewhere protection.
+- [ ] middleware protection.
 
 
 
@@ -45,24 +45,24 @@ class User extends Authenticatable
 
 this will insure you have access to the backup codes
 
-2:In order to sync the user you need to first generate the authenticator secret using the helper normally when you register or with a controller method to sync the autenticator
+2:In order to sync the user you need to first generate the authenticator secret using the helper normally when you register or with a controller method to sync the authenticator
 
 ```php
-use Mariojgt\Castle\Helpers\AutenticatorHandle;
+use Mariojgt\Castle\Helpers\AuthenticatorHandle;
 
 class myController
 {
     public register () {
 	    // Start the class that handle most of the logic
-	    $handle = new AutenticatorHandle();
+	    $handle = new AuthenticatorHandle();
 	    // Generate the code
 		$codeInfo =	    $handle->generateCode($userEmail);
 		// Sync that code with the user using the trait
-		Auth()->user()->syncAutenticator($codeInfo['secret']);
+		Auth()->user()->syncAuthenticator($codeInfo['secret']);
     }
 ```
 
-3: At this point the authenticator is enabled against that user, now you need to protect the middlewhere here is a example
+3: At this point the authenticator is enabled against that user, now you need to protect the middleware here is a example
 
 ```php
 // Auth Route Example
@@ -84,15 +84,15 @@ Auth()->user()->getCodes; // this will return the backup codes for that user
 5:using backup codes see the example
 
 ```php
-use Mariojgt\Castle\Helpers\AutenticatorHandle;
+use Mariojgt\Castle\Helpers\AuthenticatorHandle;
 
 myclass {
 
 	public myFunction () {
 		 // Start the class that handle most of the logic
-		$handle = new AutenticatorHandle();
+		$handle = new AuthenticatorHandle();
 		// the encryption is using the normal laravel encrypt fuction // example encrypt('user_secret')
-		$handle->useBackupCode($codeYouType, $encryptAutenticatorSecret); // The second parameter is not required
+		$handle->useBackupCode($codeYouType, $encryptauthenticatorSecret); // The second parameter is not required
 	}
 
 }

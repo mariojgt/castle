@@ -15,20 +15,20 @@ use BaconQrCode\Writer;
 use App\Helpers\CastleHelper;
 
 /**
- * This class will handle the autenticator 2fa authentication
+ * This class will handle the authenticator 2fa authentication
  */
-class AutenticatorHandle
+class AuthenticatorHandle
 {
     public function __construct()
     {
-        // Google autenticator class
+        // Google authenticator class
         $this->google2fa    = new Google2FA();
         // This is the overide class we goin to use case we need to change the default view location
         $this->castleHelper = new CastleHelper();
     }
 
     /**
-     * Generate the autenticator code and the qrcode string
+     * Generate the authenticator code and the qrcode string
      * @param string $email
      *
      * @return [array]
@@ -52,7 +52,7 @@ class AutenticatorHandle
         ));
 
         // Add the secret to the session
-        Session::put('autenticator_key', encrypt($registration_data['google2fa_secret']));
+        Session::put('authenticator_key', encrypt($registration_data['google2fa_secret']));
 
         // Return the generated qr-code and the secret in text format
         return [
@@ -80,7 +80,7 @@ class AutenticatorHandle
     }
 
     /**
-     * Validate the autenticator code, this will return true or false
+     * Validate the authenticator code, this will return true or false
      * @param mixed $one_time_password
      * @param null $key
      *
@@ -90,7 +90,7 @@ class AutenticatorHandle
     {
         // If empty it comes from the session note that we descypt that before
         if (empty($key)) {
-            $key = decrypt(Session::get('autenticator_key'));
+            $key = decrypt(Session::get('authenticator_key'));
         }
 
         return $this->google2fa->verifyKey($key, $one_time_password);
@@ -102,44 +102,41 @@ class AutenticatorHandle
      */
     public function logout()
     {
-        // Forget the autenticator secret
-        Session::forget('autenticator_key');
-        // Forget the by pass in the middlewhere
+        // Forget the authenticator secret
+        Session::forget('authenticator_key');
+        // Forget the by pass in the middleware
         Session::forget('castle_wall_autenticate');
         // also forget the last time sync
         Session::forget('castle_wall_last_sync');
-        // Return ture means is logout from the autenticator
+        // Return ture means is logout from the authenticator
         return true;
     }
 
     /**
-     * Createa the need session varaibles so the user can login in the system without the twoStepsVerification
-     * @return [type]
+     * Created the need session variables so the user can login in the system without the twoStepsVerification
      */
     public function login()
     {
-        // Create some varaible so the user can be autenticate and pass the middlewhere
-        Session::put('castle_wall_autenticate', true); // means the user can pass the middlewhere
+        // Create some varaible so the user can be authenticate and pass the middleware
+        Session::put('castle_wall_autenticate', true); // means the user can pass the middleware
         Session::put('castle_wall_last_sync', Carbon::now()); // the last time him did as sync
 
         return true;
     }
 
     /**
-     * Return the view where the user can autenticate using the autenticator code
-     * @return [type]
+     * Return the view where the user can authenticate using the authenticator code
      */
-    public function renderWallAutentication()
+    public function renderWallAuthentication()
     {
         return $this->castleHelper->overrideWallAuthentication();
     }
 
     /**
-     * Generate and return the backupcodes
+     * Generate and return the backup codes
      *
      * @param mixed $secret
      *
-     * @return [array]
      */
     public function generateBackupCodes($secret)
     {
@@ -160,26 +157,25 @@ class AutenticatorHandle
     }
 
     /**
-     * This fuction the user will type his valid backup code and we goin to check so the user
+     * This fuction the user will type his valid backup code and we going to check so the user
      * can acess the next request
      * @param mixed $code
      *
-     * @return [array]
      */
-    public function useBackupCode($backupCode, $encryptAutenticatorSecret = null)
+    public function useBackupCode($backupCode, $encryptAuthenticatorSecret = null)
     {
-        // If empty it comes from the session note that we descypt that before
-        if (empty($encryptAutenticatorSecret)) {
-            $encryptAutenticatorSecret = Session::get('autenticator_key');
+        // If empty it comes from the session note that we decrypt that before
+        if (empty($encryptAuthenticatorSecret)) {
+            $encryptAuthenticatorSecret = Session::get('authenticator_key');
         }
 
         // Try to find that key backup codes
-        $backupCodes = CastleCode::where('secret', $encryptAutenticatorSecret)->first();
+        $backupCodes = CastleCode::where('secret', $encryptAuthenticatorSecret)->first();
 
         // If not found return false
         if (empty($backupCodes)) {
             return [
-                'message' => 'Autenticator code not found.',
+                'message' => 'authenticator code not found.',
                 'status'  => false
             ];
         } else {
@@ -187,7 +183,7 @@ class AutenticatorHandle
             $codes = collect(json_decode($backupCodes->codes));
 
             foreach ($codes as $key => $code) {
-                // Descrypt the database code and compare to the user
+                // Decrypt the database code and compare to the user
                 $decodeCode = $code->code;
                 // Compare the string that the user type with the one stored in the database
                 if ($decodeCode == $backupCode) {
@@ -202,7 +198,7 @@ class AutenticatorHandle
                         $backupCodes->codes = json_encode($codes);
                         $backupCodes->save();
 
-                        // Login the user because at this poin the code is valid
+                        // Login the user because at this point the code is valid
                         $this->login();
                         return [
                             'message' => 'Valid Code',
@@ -221,14 +217,13 @@ class AutenticatorHandle
     }
 
     /**
-     * This method will remove the twosetps verification for the user
+     * This method will remove the two septs verification for the user
      * @param Model $model
      *
-     * @return [type]
      */
-    public function removeTwoStepsAutenticator(Model $model)
+    public function removeTwoStepsAuthenticator(Model $model)
     {
-        // Remove the autenticator
+        // Remove the authenticator
         $model->getCodes->delete();
         return true;
     }

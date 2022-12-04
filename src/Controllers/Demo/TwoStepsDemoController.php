@@ -5,32 +5,29 @@ namespace Mariojgt\Castle\Controllers\Demo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
-use Mariojgt\Castle\Helpers\AutenticatorHandle;
+use Mariojgt\Castle\Helpers\AuthenticatorHandle;
 use Mariojgt\Castle\Helpers\SystemInfo;
 
 /**
- * The controller is used only for the demo, it cointains the basic to get stated wit the 2 steps verification
- * [Description HomeContoller]
+ * The controller is used only for the demo, it contains the basic to get stated wit the 2 steps verification
  */
 class TwoStepsDemoController extends Controller
 {
     /**
      * Render the page where you are able to ype your email so we can generate the code
-     * @return [blade view]
      */
     public function index()
     {
         $manager = new SystemInfo();
         $version = $manager->systemVersion();
 
-        return view('Castle::content.home.Index', compact('version'));
+        return view('castle::content.home.index', compact('version'));
     }
 
     /**
      * Get the user email and generate the code
      * @param Request $request
      *
-     * @return [type]
      */
     public function generate(Request $request)
     {
@@ -38,21 +35,20 @@ class TwoStepsDemoController extends Controller
             'email'       => 'required',
         ]);
 
-        // Call the class that generate the gr-code with the screct read for google autneticator
-        $autenticatorHandle = new AutenticatorHandle();
-        $generatedCode      = $autenticatorHandle->generateCode(Request('email'));
+        // Call the class that generate the gr-code with the secret read for google authenticator
+        $AuthenticatorHandle = new AuthenticatorHandle();
+        $generatedCode      = $AuthenticatorHandle->generateCode(Request('email'));
 
         // Add the secret in a session so we can check later if match
-        Session::put('autenticator_key', encrypt($generatedCode["secret"]));
+        Session::put('authenticator_key', encrypt($generatedCode["secret"]));
 
-        return view('Castle::content.home.CodeGenerated', compact('generatedCode'));
+        return view('castle::content.home.codeGenerated', compact('generatedCode'));
     }
 
     /**
-     * Check if the code that the user type match with the autenticator
+     * Check if the code that the user type match with the authenticator
      * @param Request $request
      *
-     * @return [type]
      */
     public function checkCode(Request $request)
     {
@@ -60,34 +56,32 @@ class TwoStepsDemoController extends Controller
             'code'       => 'required',
         ]);
 
-        $autenticatorHandle = new AutenticatorHandle();
-        $verification       = $autenticatorHandle->checkCode(Request('code'));
+        $AuthenticatorHandle = new AuthenticatorHandle();
+        $verification       = $AuthenticatorHandle->checkCode(Request('code'));
 
-        return view('Castle::content.home.CheckResult', compact('verification'));
+        return view('castle::content.home.checkResult', compact('verification'));
     }
 
     /**
-     * Make the user logout so the middlewhere wil ask to login againt
+     * Make the user logout so the middleware wil ask to login against
      * @param Request $request
      *
-     * @return [type]
      */
     public function logout(Request $request)
     {
-        $autenticatorHandle = new AutenticatorHandle();
-        $autenticatorHandle->logout();
+        $AuthenticatorHandle = new AuthenticatorHandle();
+        $AuthenticatorHandle->logout();
 
         return redirect()->route('castle');
     }
 
     /**
-     * The example with the prodcted using the middlewhere
+     * The example with the protected using the middleware
      * @param Request $request
      *
-     * @return [type]
      */
     public function protected(Request $request)
     {
-        return view('Castle::content.home.Autenticate');
+        return view('castle::content.home.authenticate');
     }
 }

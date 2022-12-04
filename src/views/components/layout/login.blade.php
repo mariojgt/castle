@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dracula">
+<html lang="en" data-theme="{{ config('castle.castle_theme') }}">
 
 <head>
     <meta charset="UTF-8">
@@ -18,7 +18,7 @@
                 <n-notification-provider>
                     <n-dialog-provider>
                         <n-config-provider>
-                            <x-Castle::layout.flash />
+                            <x-castle::layout.flash />
                         </n-config-provider>
                     </n-dialog-provider>
                 </n-notification-provider>

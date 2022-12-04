@@ -3,14 +3,13 @@ namespace Mariojgt\Castle\Helpers;
 
 /**
 * System version info
-* [Description SystemInfo]
 */
 
 class SystemInfo
 {
     public function systemVersion()
     {
-        return 'v0.1.0-beta.1';
+        return '2.0.5';
     }
 
     public function systemUpdates()
@@ -18,5 +17,3 @@ class SystemInfo
         return '';
     }
 }
-
-?>

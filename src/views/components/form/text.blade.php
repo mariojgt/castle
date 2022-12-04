@@ -6,7 +6,7 @@
         {{ $required ?? ''=="true" ? "required" : "" }} value="{{ $value ?? old($name) }}"
         placeholder="{{ $placeholder ?? '' }}">
     @error($name)
-    <span class="invalid-feedback text-black dark:text-white" role="alert">
+    <span class="invalid-feedback text-neutral dark:text-white" role="alert">
         <strong>{{ $message }}</strong>
     </span>
     @enderror

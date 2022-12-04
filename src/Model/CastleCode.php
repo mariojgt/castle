@@ -10,8 +10,7 @@ class CastleCode extends Model
     use HasFactory;
 
     /**
-     * This fuction will return the model related to the code
-     * @return [type]
+     * This function will return the model related to the code
      */
     public function castleModelItem()
     {

@@ -32,6 +32,6 @@ class SendVerificationEmail extends Mailable implements ShouldQueue
     public function build()
     {
         return $this->from(env('MAIL_FROM_ADDRESS'))
-            ->markdown('Castle::email.verificationCode');
+            ->markdown('castle::email.verificationCode');
     }
 }

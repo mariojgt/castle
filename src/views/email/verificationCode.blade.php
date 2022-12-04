@@ -3,7 +3,7 @@
 
 Please enter the code bellow to verify your email address.
 
-<strong>{!! $code !!}</strong>
+<h1><strong>{!! $code !!}</strong></h1>
 
 Thanks,<br>
 {{ config('app.name') }}

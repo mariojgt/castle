@@ -20,7 +20,7 @@ class CastleHelper
     public function overrideWallAuthentication()
     {
         // Render a new request with the autentication page
-        return new Response(view('Castle::content.autentication.index'));
+        return new Response(view('castle::content.autentication.index'));
     }
 
     /**

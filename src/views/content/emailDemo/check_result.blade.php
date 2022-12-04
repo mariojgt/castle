@@ -1,18 +1,18 @@
-<x-Castle::layout.login>
-    <x-Castle::auth.authconteiner title="Email Code">
+<x-castle::layout.login>
+    <x-castle::auth.authconteiner title="Email Code">
         <x-slot name="form">
             @if ($response)
             <div class="alert col-span-1 xl:col-span-2 bg-base-100">
                 <div class="flex-1"><label class="mx-3">Congratulations code is correct.</label></div>
                 <div class="flex-none">
 
-                    <label for="my-modal-2" class="btn btn-sm btn-primary modal-button">Try Middlewhere</label>
+                    <label for="my-modal-2" class="btn btn-sm btn-primary modal-button">Try middleware</label>
                     <input type="checkbox" id="my-modal-2" class="modal-toggle">
                     <div class="modal">
                         <div class="modal-box">
                             <p>{{ $message }}</p>
                             <div class="modal-action">
-                                <a href="{{ route('castle.try') }}" class="btn btn-primary">Try Middlewhere</a>
+                                <a href="{{ route('castle.try') }}" class="btn btn-primary">Try middleware</a>
                                 <label for="my-modal-2" class="btn">Close</label>
                             </div>
                         </div>
@@ -22,12 +22,12 @@
             @else
             <div class="alert col-span-1 xl:col-span-2 bg-base-100">
                 <div class="flex-1"><label class="mx-3">{{ $message }}</label></div>
-                <x-Castle::form.form action="{{ route('castle.check') }}">
+                <x-castle::form.form action="{{ route('castle.check') }}">
                     <div class="px-5 py-7">
-                        <x-Castle::form.text name="code" label="Type the code here" />
-                        <x-Castle::form.submit name="Check Code" />
+                        <x-castle::form.text name="code" label="Type the code here" />
+                        <x-castle::form.submit name="Check Code" />
                     </div>
-                </x-Castle::form.form>
+                </x-castle::form.form>
             </div>
             @endif
         </x-slot>
@@ -35,6 +35,6 @@
         <x-slot name="links">
 
         </x-slot>
-    </x-Castle::auth.authconteiner>
+    </x-castle::auth.authconteiner>
 
-</x-Castle::layout.login>
+</x-castle::layout.login>

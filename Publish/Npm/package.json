@@ -11,21 +11,19 @@
     },
     "devDependencies": {
         "@vue/compiler-sfc": "^3.0.5",
-        "axios": "^0.21.1",
+        "axios": "^1.2.0",
         "cross-env": "^7.0",
         "laravel-mix": "^6.0.10",
         "lodash": "^4.17.19",
         "postcss": "^8.2.4",
-        "resolve-url-loader": "^2.3.1",
+        "resolve-url-loader": "^5.0.0",
         "sass": "^1.32.5",
         "naive-ui": "^2.24.4",
-        "sass-loader": "^8.0.0"
+        "sass-loader": "^13.2.0"
     },
     "dependencies": {
         "daisyui": "^2.14.1",
-        "sweetalert2": "^9.17.2",
         "tailwindcss": "^3.0.0",
-        "tinymce": "^5.6.2",
         "toastify-js": "^1.9.3",
         "vue": "^3.2.23",
         "vue-loader": "^17.0.0"

@@ -8,10 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Session;
-use Mariojgt\Castle\Helpers\AutenticatorHandle;
+use Mariojgt\Castle\Helpers\AuthenticatorHandle;
 
 /**
- * [This middlewhere will ensure 2 steps verfication]
+ * [This middleware will ensure 2 steps verification]
  */
 class CastleWall
 {
@@ -32,19 +32,19 @@ class CastleWall
      */
     public function handle($request, Closure $next, $guard = 'web')
     {
-        // Make sure that the user is login before we can check the autenticator code
+        // Make sure that the user is login before we can check the authenticator code
         if (Auth::guard($guard)->check()) {
-            // Check if the currect user has twoStepsEnable enable if yes we can check
+            // Check if the current user has twoStepsEnable enable if yes we can check
             if (Auth::guard($guard)->user()->twoStepsEnable()) {
-                // Start the autenticator class handle
-                $autenticatorHandle = new AutenticatorHandle();
+                // Start the authenticator class handle
+                $AuthenticatorHandle = new AuthenticatorHandle();
 
-                // Check if the user has already pass 2 steps autentication
+                // Check if the user has already pass 2 steps authentication
                 if (empty(Session::get('castle_wall_autenticate'))) {
-                    // Create the session telling us waht is the current guard
+                    // Create the session telling us what is the current guard
                     Session::put('castle_wall_current_guard', $guard);
-                    // render the autenticator view where the user need to type the code
-                    return $autenticatorHandle->renderWallAutentication();
+                    // render the authenticator view where the user need to type the code
+                    return $AuthenticatorHandle->renderWallAuthentication();
                 }
 
                 // Check if the session can expire
@@ -52,18 +52,18 @@ class CastleWall
                     // Now we need to check if the session is expired
                     $date = Carbon::parse(Session::get('castle_wall_last_sync'));
                     $now  = Carbon::now();
-                    // Check the session diference in minutes
+                    // Check the session difference in minutes
                     $diff = $date->diffInMinutes($now);
-                    // If true we need to make the user autenticate again
+                    // If true we need to make the user authenticate again
                     if ($diff >= config('castle.castle_wall_session_time')) {
-                        // Render the autenticator view where the user need to type the code
-                        return $autenticatorHandle->renderWallAutentication();
+                        // Render the authenticator view where the user need to type the code
+                        return $AuthenticatorHandle->renderWallAuthentication();
                     }
                 }
-                // Green light to go to the next middlewhere
+                // Green light to go to the next middleware
                 return $next($request);
             } else {
-                // Green light to go to the next middlewhere
+                // Green light to go to the next middleware
                 return $next($request);
             }
         } else {

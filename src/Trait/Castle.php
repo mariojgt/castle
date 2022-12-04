@@ -4,16 +4,16 @@ namespace Mariojgt\Castle\Trait;
 
 use Mariojgt\Castle\Model\CastleCode;
 use Illuminate\Support\Facades\Session;
-use Mariojgt\Castle\Helpers\AutenticatorHandle;
+use Mariojgt\Castle\Helpers\AuthenticatorHandle;
 
 /**
- * [This trait will handle the model autenticator features]
- * will check if the autenticator is enable, return the backupcodes and sync the model with the autenticator
+ * [This trait will handle the model authenticator features]
+ * will check if the authenticator is enable, return the backup codes and sync the model with the authenticator
  */
 trait Castle
 {
     /**
-     * Get the user autenticator token
+     * Get the user authenticator token
      * @return [boolean]
      */
     public function twoStepsEnable()
@@ -25,25 +25,25 @@ trait Castle
             return false;
         } else {
             // Start the session so we can check the user one time password
-            Session::put('autenticator_key', encrypt($codes['secret']));
+            Session::put('authenticator_key', encrypt($codes['secret']));
             return true;
         }
     }
 
     /**
-     * This Fuction will sync the model(user) to the secret key
+     * This Function will sync the model(user) to the secret key
      * @param mixed $secret
      *
      * @return [array]
      */
-    public function syncAutenticator($secret)
+    public function syncAuthenticator($secret)
     {
-        // Check if the model already has a autenticator attach
+        // Check if the model already has a authenticator attach
         if ($this->twoStepsEnable() == false) {
             // Call the class
-            $autenticatorHandle = new AutenticatorHandle();
+            $AuthenticatorHandle = new AuthenticatorHandle();
             // Generate the backup codes based in the secret
-            $syncCode           = $autenticatorHandle->generateBackupCodes($secret);
+            $syncCode           = $AuthenticatorHandle->generateBackupCodes($secret);
             // Attach the model to the table where have the secret and the codes
             $castleCode           = new CastleCode();
             $castleCode->model    = get_class($this);
@@ -53,12 +53,12 @@ trait Castle
             $castleCode->save();
 
             return [
-                'message' => 'User autenticator enable',
+                'message' => 'User authenticator enable',
                 'status'  => true,
             ];
         } else {
             return [
-                'message' => 'User already have a autenticator enable',
+                'message' => 'User already have a authenticator enable',
                 'status'  => false,
             ];
         }

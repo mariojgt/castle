@@ -38,7 +38,7 @@ class Republish extends Command
      */
     public function handle()
     {
-        $bar = $this->output->createProgressBar(5);
+        $bar = $this->output->createProgressBar(6);
         $bar->start();
 
         // First we move the resources where we keep the css and js files
@@ -53,11 +53,11 @@ class Republish extends Command
         File::copyDirectory($targetFolderPublic, $destitionPublic);
         $bar->advance(); // Little Progress bar
 
-        // Now we move the lang file
-        // $targetFolderPublic = resource_path('lang/');
-        // $destitionPublic    = __DIR__ . '/../../Publish/Lang';
-        // File::copyDirectory($targetFolderPublic, $destitionPublic);
-        // $bar->advance(); // Little Progress bar
+        // Now we move the config file
+        $targetFolderPublic = config_path('castle.php');
+        $destitionPublic    = __DIR__ . '/../../Publish/Config';
+        File::copyDirectory($targetFolderPublic, $destitionPublic);
+        $bar->advance(); // Little Progress bar
 
         // Now we copy the webpack file
         $targetFolderWebPack = base_path('webpack.mix.js');

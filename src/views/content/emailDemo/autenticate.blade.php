@@ -1,5 +1,5 @@
-<x-Castle::layout.login>
-    <x-Castle::auth.authconteiner title="Autenticate">
+<x-castle::layout.login>
+    <x-castle::auth.authconteiner title="Autenticate">
         <x-slot name="form">
             <div class="card shadow-lg compact side bg-base-100">
                 <div class="flex-row items-center space-x-4 card-body">
@@ -18,13 +18,13 @@
             <div class="grid grid-cols-2 gap-1">
                 <div class="text-center sm:text-center whitespace-nowrap">
                     {{--
-                    <x-Castle::form.link route="{{ route('forgot-password') }}" name="Forgot Password" /> --}}
+                    <x-castle::form.link route="{{ route('forgot-password') }}" name="Forgot Password" /> --}}
                 </div>
                 <div class="text-center sm:text-center whitespace-nowrap">
                     {{--
-                    <x-Castle::form.link route="{{ route('register') }}" name="Register" /> --}}
+                    <x-castle::form.link route="{{ route('register') }}" name="Register" /> --}}
                 </div>
             </div>
         </x-slot>
-    </x-Castle::auth.authconteiner>
-</x-Castle::layout.login>
+    </x-castle::auth.authconteiner>
+</x-castle::layout.login>

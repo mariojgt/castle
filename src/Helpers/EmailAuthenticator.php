@@ -11,20 +11,19 @@ use Illuminate\Support\Facades\Session;
 use Mariojgt\Castle\Mail\SendVerificationEmail;
 
 /**
- * This Class will handle the email autentication
+ * This Class will handle the email authentication
  */
-class EmailAutenticator
+class EmailAuthenticator
 {
     /**
      * Send the email verification
      * @param mixed $email
      *
-     * @return [type]
      */
     public function triggerEmail($email)
     {
-        // Generate a randon code
-        $code = Str::random(55);
+        // Generate a random code
+        $code = rand(100000, 999999);
         DB::beginTransaction();
 
         $email = $email;
@@ -47,7 +46,6 @@ class EmailAutenticator
      * Check if the email is already in the database if yes then delete it with the code
      * @param mixed $email
      *
-     * @return [type]
      */
     public function checkEmailCode($email)
     {
@@ -63,7 +61,6 @@ class EmailAutenticator
      *
      * @param mixed $code
      *
-     * @return [type]
      */
     public function validateCode($code)
     {
@@ -78,7 +75,7 @@ class EmailAutenticator
             } else {
                 // Code is valid
                 $emailVerify->delete();
-                Session::put('castle_email_autenticate', true); // Means the user can pass the middlewhere
+                Session::put('castle_email_autenticate', true); // Means the user can pass the middleware
                 return true;
             }
         } else {
@@ -89,7 +86,7 @@ class EmailAutenticator
 
     public function logout()
     {
-        // Forget the autenticator secret
+        // Forget the authenticator secret
         Session::forget('castle_email_autenticate');
 
         return true;
