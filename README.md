@@ -16,8 +16,6 @@ This Laravel package help you quickly add 2fa authentication in you existing app
 
 ## Badges
 
-Add badges from somewhere like: [shields.io](https://shields.io/)
-
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 [![version](https://img.shields.io/packagist/v/mariojgt/castle?style=for-the-badge)](http://www.gnu.org/licenses/agpl-3.0)
 
