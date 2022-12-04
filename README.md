@@ -1,26 +1,37 @@
-![image info](https://raw.githubusercontent.com/mariojgt/castle/main/Publish/Art/logo.png)
+
+![Logo](https://raw.githubusercontent.com/mariojgt/castle/main/Publish/Art/logo.png)
 
 
 # Castle
 
 This Laravel package help you quickly add 2fa authentication in you existing application, simular to google authentication.
 
-# Features
 
--   [ ] Demo with the example application flow you need.
--   [ ] 2 steps autentication.
-- [ ] middleware protection.
+## Features
+
+- Demo with the example application flow you need.
+- 2 steps autentication.
+- middleware protection.
 
 
+## Badges
 
-### First option via composer
+Add badges from somewhere like: [shields.io](https://shields.io/)
 
-1. composer require mariojgt/castle
-2. php artisan install::castle
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+[![version](https://img.shields.io/packagist/v/mariojgt/castle?style=for-the-badge)](http://www.gnu.org/licenses/agpl-3.0)
 
-This will copy the resource assets, run migrations and copy over some config file we need to use;
 
-## How to use
+## Installation
+
+Install my-project with composer
+
+```bash
+  composer require mariojgt/castle
+  php artisan install::castle
+```
+    
+## Usage/Examples
 
 1: You need to assign the trait to you user model table in order to use the 2steps verification and have access to the backup codes.
 
@@ -42,11 +53,9 @@ class User extends Authenticatable
         'password',
     ];
 ```
-
 this will insure you have access to the backup codes
 
-2:In order to sync the user you need to first generate the authenticator secret using the helper normally when you register or with a controller method to sync the authenticator
-
+2: In order to sync the user you need to first generate the authenticator secret using the helper normally when you register or with a controller method to sync the authenticator
 ```php
 use Mariojgt\Castle\Helpers\AuthenticatorHandle;
 
@@ -72,16 +81,13 @@ Route::group([
     // Example page required to be login
     Route::get('/castle-try', [HomeContoller::class, 'protected'])->name('castle.try');
 });
-
 ```
+4: Display the user codes, normaly you only display the backup codes once you can use the following example
 
-4:Display the user codes, normaly you only display the backup codes once you can use the following example
-
-```
+```php
 Auth()->user()->getCodes; // this will return the backup codes for that user
 ```
-
-5:using backup codes see the example
+5: using backup codes see the example
 
 ```php
 use Mariojgt\Castle\Helpers\AuthenticatorHandle;
@@ -97,4 +103,9 @@ myclass {
 
 }
 ```
+## Tech Stack
+
+**Client:** TailwindCSS, vuejs, blade
+
+**Server:** 2fa, Laravel
 
