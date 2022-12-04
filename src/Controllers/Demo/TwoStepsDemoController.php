@@ -40,7 +40,7 @@ class TwoStepsDemoController extends Controller
         $generatedCode      = $AuthenticatorHandle->generateCode(Request('email'));
 
         // Add the secret in a session so we can check later if match
-        Session::put('authenticator_key', encrypt($generatedCode["secret"]));
+        Session::put('authenticator_key', $generatedCode["secret"]);
 
         return view('castle::content.home.codeGenerated', compact('generatedCode'));
     }

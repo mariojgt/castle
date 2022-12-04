@@ -25,7 +25,7 @@ trait Castle
             return false;
         } else {
             // Start the session so we can check the user one time password
-            Session::put('authenticator_key', encrypt($codes['secret']));
+            Session::put('authenticator_key', $codes['secret']);
             return true;
         }
     }
@@ -48,7 +48,7 @@ trait Castle
             $castleCode           = new CastleCode();
             $castleCode->model    = get_class($this);
             $castleCode->model_id = $this->id;
-            $castleCode->secret   = encrypt($syncCode['secret']);
+            $castleCode->secret   = $syncCode['secret'];
             $castleCode->codes    = $syncCode['back_up_code'];
             $castleCode->save();
 

@@ -52,7 +52,7 @@ class AuthenticatorHandle
         ));
 
         // Add the secret to the session
-        Session::put('authenticator_key', encrypt($registration_data['google2fa_secret']));
+        Session::put('authenticator_key', $registration_data['google2fa_secret']);
 
         // Return the generated qr-code and the secret in text format
         return [
@@ -88,9 +88,9 @@ class AuthenticatorHandle
      */
     public function checkCode($one_time_password, $key = null)
     {
-        // If empty it comes from the session note that we descypt that before
+        // If empty it comes from the session
         if (empty($key)) {
-            $key = decrypt(Session::get('authenticator_key'));
+            $key = Session::get('authenticator_key');
         }
 
         return $this->google2fa->verifyKey($key, $one_time_password);
@@ -117,7 +117,7 @@ class AuthenticatorHandle
      */
     public function login()
     {
-        // Create some varaible so the user can be authenticate and pass the middleware
+        // Create some variable so the user can be authenticate and pass the middleware
         Session::put('castle_wall_autenticate', true); // means the user can pass the middleware
         Session::put('castle_wall_last_sync', Carbon::now()); // the last time him did as sync
 
