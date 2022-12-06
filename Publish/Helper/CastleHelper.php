@@ -6,25 +6,25 @@ use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
 /**
- * This helper will be use to render the 2fa autentication pages error
- * we can also return a response to the user or a api responce
+ * This helper will be use to render the 2fa authentication pages error
+ * we can also return a response to the user or a api response
  */
 class CastleHelper
 {
 
     /**
-     * This fuction will render the autentication page so the user can type the code
-     * note that we can change this to use ajax, inersia js or any other way defult use the blade file
+     * This function will render the authentication page so the user can type the code
+     * note that we can change this to use ajax, inertia js or any other way default use the blade file
      * @return [type]
      */
     public function overrideWallAuthentication()
     {
-        // Render a new request with the autentication page
-        return new Response(view('castle::content.autentication.index'));
+        // Render a new request with the authentication page
+        return redirect()->route('castle.wall');
     }
 
     /**
-     * On Autentication sucess we redirect the user using the customer helper that you can change
+     * On authentication success we redirect the user using the customer helper that you can change
      * @param Request $request
      *
      * @return [type]
@@ -36,7 +36,7 @@ class CastleHelper
     }
 
     /**
-     * On Autentication error we redirect the user using the customer helper that you can change
+     * On authentication error we redirect the user using the customer helper that you can change
      * @param Request $request
      *
      * @return [type]

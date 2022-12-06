@@ -13,4 +13,7 @@ Route::group([
     // Unlock castle code
     Route::post('/castle/unlock/account/backup/code', [WallAuthenticationController::class, 'tryUseBackupCode'])
         ->name('castle.unlock.backup.code');
+
+    // Render the view that display the castle wall
+    Route::view('/castle/wall', 'castle::content.authentication.index')->name('castle.wall');
 });
