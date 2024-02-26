@@ -4,7 +4,7 @@
     </label>
     <div class="relative">
         <input type="password" class="w-full pr-16 input input-primary input-bordered" name="{{ $name ?? 'name' }}"
-            id="{{ $id ?? $name }}" {{ $required ?? ''=="true" ? "required" : "" }} value="{{ $value ?? old($name) }}"
+            id="{{ $id ?? $name }}" {{ $required ?? '' == 'true' ? 'required' : '' }} value="{{ $value ?? old($name) }}"
             placeholder="{{ $placeholder ?? '' }}">
         <a class="absolute top-0 right-0 rounded-l-none btn btn-primary"
             onclick="$inputs.passwordToogle('{{ $id ?? $name }}')">
@@ -18,8 +18,8 @@
         </a>
     </div>
     @error($name)
-    <span class="invalid-feedback text-neutral dark:text-white" role="alert">
-        <strong>{{ $message }}</strong>
-    </span>
+        <span class="invalid-feedback text-neutral dark:text-white" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
     @enderror
 </div>

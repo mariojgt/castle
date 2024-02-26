@@ -71,7 +71,7 @@ class AuthenticatorHandle
     private function generateQrCodeSvg($urlCode)
     {
         $renderer = new ImageRenderer(
-            new RendererStyle(200),
+            new RendererStyle(config('castle.castle_svg_size')),
             new SvgImageBackEnd()
         );
 

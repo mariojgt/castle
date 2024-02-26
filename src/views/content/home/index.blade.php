@@ -2,25 +2,12 @@
     <x-castle::auth.authconteiner title="Castle {{ $version }}">
         <x-slot name="form">
             <x-castle::form.form action="{{ route('castle.generate') }}">
-                <p class="text-base-content text-opacity-40">Type You Email in order to create a secret</p>
-                <div class="px-5 py-7">
-                    <x-castle::form.email name="email" label="Your Email" />
+                <p class="text-base-content font-bold">Generate Code, Please enter your email</p>
+                <div class="mt-2">
+                    <x-castle::form.text name="email" label="Your Email" type="email" required="true" />
                     <x-castle::form.submit name="Generate Code" />
                 </div>
             </x-castle::form.form>
-        </x-slot>
-
-        <x-slot name="links">
-            <div class="grid grid-cols-2 gap-1">
-                <div class="text-center sm:text-center whitespace-nowrap">
-                    {{--
-                    <x-castle::form.link route="{{ route('forgot-password') }}" name="Forgot Password" /> --}}
-                </div>
-                <div class="text-center sm:text-center whitespace-nowrap">
-                    {{--
-                    <x-castle::form.link route="{{ route('register') }}" name="Register" /> --}}
-                </div>
-            </div>
         </x-slot>
     </x-castle::auth.authconteiner>
 

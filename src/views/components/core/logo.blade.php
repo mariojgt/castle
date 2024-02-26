@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg" class="{{ $full ?? 'false' == " true" ? "object-cover w-full h-full" : "" }}"
     viewBox="0 0 125.38671875 122.96484375" width="{{ $width ?? 125.38671875 }}" height="{{ $height ?? 122.96484375 }}">
-    <rect fill="hsla(var(--p) / var(--tw-bg-opacity))" width="125.38671875" height="122.96484375" x="0" y="0"></rect>
+    <rect fill="oklch(var(--p))" width="125.38671875" height="122.96484375" x="0" y="0"></rect>
     <g fill="hsla(var(--pc)/var(--tw-text-opacity,1))" color="hsla(var(--pc)/var(--tw-text-opacity,1))"
         transform="translate(37.694 12) scale(0.5)"><svg width="100.0" height="100.0" x="0.0" y="0.0"
             viewBox="0 0 100 100">

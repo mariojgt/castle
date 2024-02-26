@@ -7,7 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $title ?? 'Castle Media Manager' }}</title>
     @vite('resources/vendor/Castle/js/app.js', 'vendor/Castle')
-    @vite('resources/vendor/Castle/js/vue.js', 'vendor/Castle')
     @vite('resources/vendor/Castle/sass/app.scss', 'vendor/Castle')
     @stack('css')
 </head>
