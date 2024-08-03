@@ -129,6 +129,7 @@ class AuthenticatorHandle
      */
     public function renderWallAuthentication()
     {
+        Session::put('castle_wall_last_url', url()->current());
         return $this->castleHelper->overrideWallAuthentication();
     }
 

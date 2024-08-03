@@ -44,7 +44,6 @@ class WallAuthenticationController extends Controller
      */
     public function tryUseBackupCode(Request $request)
     {
-        // Make sure the code has 6 digits
         $request->validate([
             'code'       => 'required',
         ]);
@@ -66,7 +65,7 @@ class WallAuthenticationController extends Controller
             // and now we remove the two steps authenticator
             $AuthenticatorHandle->removeTwoStepsAuthenticator($user);
             // Return to the next request
-            return $castleHelper->onAuthenticationSuccess($request);
+            return $castleHelper->onAuthenticationRemoved($request);
         } else {
             return $castleHelper->onAuthenticationError($request);
         }
